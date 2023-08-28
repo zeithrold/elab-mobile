@@ -1,5 +1,5 @@
 module.exports = function (api) {
-  api.cache(true);
+  api.cache(true)
   return {
     presets: ['babel-preset-expo'],
     plugins: [
@@ -7,7 +7,7 @@ module.exports = function (api) {
       'expo-router/babel',
       'react-native-reanimated/plugin',
       'transform-inline-environment-variables',
-      '@tamagui/react-native-media-driver',
-    ],
-  };
-};
+      '@tamagui/react-native-media-driver'
+    ]
+  }
+}
