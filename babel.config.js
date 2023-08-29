@@ -7,7 +7,7 @@ module.exports = function (api) {
       'expo-router/babel',
       'react-native-reanimated/plugin',
       'transform-inline-environment-variables',
-      '@tamagui/react-native-media-driver'
+      'react-native-paper/babel'
     ]
   }
 }

@@ -71,6 +71,7 @@
     "expo-updates": "~0.18.12",
     "expo-web-browser": "~12.3.2",
     "lottie-react-native": "5.1.6",
+    "mobx-react-lite": "^4.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.72.4",

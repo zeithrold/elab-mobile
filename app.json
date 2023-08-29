@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "elab-mobile",
+    "name": "OneELAB",
     "slug": "elab-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -114,17 +114,27 @@
       "expo-build-properties",
       "expo-localization",
       "react-native-nfc-manager",
-      ["@config-plugins/react-native-ble-plx", {
-        "isBackgroundEnabled": true,
-        "modes": ["peripheral", "central"],
-        "bluetoothAlwaysPermission": "请允许 $(PRODUCT_NAME) 使用蓝牙。"
-      }],
-      ["react-native-nfc-manager", {
-        "nfcPermission": "请允许 $(PRODUCT_NAME) 使用NFC。"
-      }]
+      [
+        "@config-plugins/react-native-ble-plx",
+        {
+          "isBackgroundEnabled": true,
+          "modes": [
+            "peripheral",
+            "central"
+          ],
+          "bluetoothAlwaysPermission": "请允许 $(PRODUCT_NAME) 使用蓝牙。"
+        }
+      ],
+      [
+        "react-native-nfc-manager",
+        {
+          "nfcPermission": "请允许 $(PRODUCT_NAME) 使用NFC。"
+        }
+      ]
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "tsconfigPaths": true
     },
     "extra": {
       "router": {
