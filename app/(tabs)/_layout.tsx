@@ -23,7 +23,7 @@ export default function TabLayout () {
         }}
       />
       <MaterialTabs.Screen
-        name='interview'
+        name='room'
         options={{
           title: '面试场次',
           tabBarIcon: 'view-module'

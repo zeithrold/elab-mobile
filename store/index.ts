@@ -1,3 +1,4 @@
 import ticket from './ticket'
+import room from './room'
 
-export { ticket }
+export { ticket, room }

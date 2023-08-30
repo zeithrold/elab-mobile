@@ -11,6 +11,7 @@ interface Question {
   id: string
   question: string
   text: string
+  submitted: boolean
 }
 
 interface GetQuestionResponse {

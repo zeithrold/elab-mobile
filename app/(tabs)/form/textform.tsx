@@ -1,13 +1,11 @@
+import TextFormTitle from 'components/form/textform/TextFormTitle'
 import React from 'react'
-import { View } from 'react-native'
-import { Text } from 'react-native-paper'
+import { ScrollView } from 'react-native'
 
 export default function TextFormScreen () {
   return (
-    <View>
-      <Text>
-        Hello, world
-      </Text>
-    </View>
+    <ScrollView>
+      <TextFormTitle />
+    </ScrollView>
   )
 }

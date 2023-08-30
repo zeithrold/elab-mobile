@@ -49,6 +49,13 @@ export default function FormLayout () {
           title: '基本信息填报'
         }}
       />
+      <Stack.Screen
+        name='answeredit'
+        options={{
+          headerShown: false,
+          presentation: 'modal'
+        }}
+      />
     </Stack>
   )
 }
