@@ -1,39 +1,89 @@
+import { router } from 'expo-router'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { List, useTheme } from 'react-native-paper'
 
-export default function UserStatus () {
+interface ItemContent {
+  title: string
+  description: string
+  routerRoute: any
+}
+
+const items: Record<string, ItemContent> = {
+  ticket: {
+    title: '基本信息填报',
+    description: '填写姓名、学号等基本信息。',
+    routerRoute: '/(tabs)/form/ticket'
+  },
+  text_form: {
+    title: '表单填报',
+    description: '填写一些问题的回答。',
+    routerRoute: '/(tabs)/form/textform'
+  },
+  interview: {
+    title: '面试场次选择',
+    description: '选择面试场次。',
+    routerRoute: '/index'
+  }
+}
+
+function ItemIcon (props: { status: boolean }) {
   const {
     colors: {
-      tertiary,
       primary,
       error
     }
   } = useTheme()
   return (
+    <List.Icon
+      {...props}
+      icon={props.status ? 'check-circle' : 'close-circle'}
+      color={
+        props.status ? primary : error
+      }
+    />
+  )
+}
+
+function Item ({ item, status }: { item: ItemContent, status: boolean }) {
+  return (
+    <List.Item
+      title={item.title}
+      description={item.description}
+      left={props => <ItemIcon {...props} status={status} />}
+      onPress={() => {
+        router.push(item.routerRoute)
+      }}
+    />
+  )
+}
+
+function ItemList ({ status }: { status: Record<string, boolean> }) {
+  return (
+    <>
+      {
+        Object.entries(items).map(([key, item]) => (
+          <Item
+            key={key}
+            item={item}
+            status={status[key]}
+          />
+        ))
+      }
+    </>
+  )
+}
+
+export default function UserStatus () {
+  const [status, setStatus] = React.useState({
+    ticket: false,
+    text_form: false,
+    interview: false
+  })
+  return (
     <View style={styles.container}>
       <List.Subheader>科中报名清单</List.Subheader>
-      {/* <Divider /> */}
-      <List.Item
-        title="基本信息填报（已完成）"
-        description="填写姓名、学号等基本信息。"
-        left={props => <List.Icon {...props} icon="check-circle" color={primary} />}
-        onPress={() => {}}
-      />
-      {/* <Divider /> */}
-      <List.Item
-        title="表单填报（未完成）"
-        description="填写一些问题的回答。"
-        left={props => <List.Icon {...props} icon="close-circle" color={error} />}
-        onPress={() => {}}
-      />
-      {/* <Divider /> */}
-      <List.Item
-        title="面试场次选择（未完成）"
-        description="选择面试场次。"
-        left={props => <List.Icon {...props} icon="close-circle" color={error} />}
-        onPress={() => {}}
-      />
+      <ItemList status={status} />
     </View>
   )
 }

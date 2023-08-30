@@ -23,16 +23,16 @@ module.exports = {
   plugins: ['react'],
   // ignorePatterns: ['node_modules'],
   rules: {
-    complexity: ['error', { max: 3 }],
+    complexity: ['error', { max: 4 }],
     'no-multiple-empty-lines': ['error', { max: 1 }],
-    'max-lines': ['error', { max: 70 }],
+    'max-lines': ['error', { max: 150 }],
     'max-depth': ['error', { max: 2 }],
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
     'react/jsx-indent': ['error', 2],
     'react/jsx-indent-props': ['error', 2],
     'react/jsx-closing-bracket-location': ['error', 'tag-aligned'],
-    'react/jsx-max-depth': ['error', { max: 2 }],
+    'react/jsx-max-depth': ['error', { max: 3 }],
     'react/jsx-tag-spacing': [
       'error',
       {
@@ -50,9 +50,7 @@ module.exports = {
         when: 'multiline'
       }
     ],
-    'react/jsx-first-prop-new-line': [
-      'error', 'multiline-multiprop'
-    ],
+    'react/jsx-first-prop-new-line': ['error', 'multiline-multiprop'],
     'react/jsx-curly-brace-presence': [
       'error',
       {
@@ -60,8 +58,6 @@ module.exports = {
         children: 'never'
       }
     ],
-    'react/jsx-wrap-multilines': [
-      'error', 'parens-new-line'
-    ]
+    'react/jsx-wrap-multilines': 'error'
   }
 }

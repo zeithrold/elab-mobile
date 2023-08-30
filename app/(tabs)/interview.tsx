@@ -15,7 +15,6 @@ export default function InterviewScreen () {
           <List.Item
             title="First Item"
             description="Item description"
-            onPress={() => {}}
             style={{
               paddingHorizontal: 8
             }}

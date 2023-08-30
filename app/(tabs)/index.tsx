@@ -1,7 +1,9 @@
+import IndexTitle from 'components/IndexTitle'
+import TotalStatus from 'components/TotalStatus'
 import UserStatus from 'components/UserStatus'
 import React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
-import { Appbar, Text } from 'react-native-paper'
+import { Appbar } from 'react-native-paper'
 
 export default function BasicInfoScreen () {
   return (
@@ -12,12 +14,8 @@ export default function BasicInfoScreen () {
         />
       </Appbar.Header>
       <ScrollView style={styles.container}>
-        <View style={styles.text}>
-          <Text variant='headlineLarge'>欢迎来到科中</Text>
-          <Text variant='bodyLarge'>
-            你好
-          </Text>
-        </View>
+        <IndexTitle />
+        <TotalStatus />
         <UserStatus />
       </ScrollView>
     </View>
