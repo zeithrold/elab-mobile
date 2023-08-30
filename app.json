@@ -47,11 +47,6 @@
       ],
       "package": "com.elab.mobileapp"
     },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
-    },
     "plugins": [
       [
         "react-native-auth0",

@@ -1,42 +1,41 @@
 import React from 'react'
-import FontAwesome from '@expo/vector-icons/FontAwesome'
-import { Tabs } from 'expo-router'
-import { useColorScheme } from 'react-native'
-
-import Colors from '../../constants/Colors'
-
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon (props: {
-  name: React.ComponentProps<typeof FontAwesome>['name']
-  color: string
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />
-}
+import { MaterialTabs } from 'components/MaterialTabs'
 
 export default function TabLayout () {
-  const colorScheme = useColorScheme()
-
   return (
-    <Tabs
+    <MaterialTabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint
-      }}>
-      <Tabs.Screen
-        name="index"
+        title: '首页'
+      }}
+    >
+      <MaterialTabs.Screen
+        name='index'
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />
+          title: '首页',
+          tabBarIcon: 'home'
         }}
       />
-      <Tabs.Screen
-        name="two"
+      <MaterialTabs.Screen
+        name='form'
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />
+          title: '报名',
+          tabBarIcon: 'text-long'
         }}
       />
-    </Tabs>
+      <MaterialTabs.Screen
+        name='interview'
+        options={{
+          title: '面试场次',
+          tabBarIcon: 'view-module'
+        }}
+      />
+      <MaterialTabs.Screen
+        name='profile'
+        options={{
+          title: '我',
+          tabBarIcon: 'account'
+        }}
+      />
+    </MaterialTabs>
   )
 }

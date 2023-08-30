@@ -21,8 +21,47 @@ module.exports = {
     project: './tsconfig.json'
   },
   plugins: ['react'],
+  // ignorePatterns: ['node_modules'],
   rules: {
+    complexity: ['error', { max: 3 }],
+    'no-multiple-empty-lines': ['error', { max: 1 }],
+    'max-lines': ['error', { max: 70 }],
+    'max-depth': ['error', { max: 2 }],
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/strict-boolean-expressions': 'off'
+    '@typescript-eslint/strict-boolean-expressions': 'off',
+    'react/jsx-indent': ['error', 2],
+    'react/jsx-indent-props': ['error', 2],
+    'react/jsx-closing-bracket-location': ['error', 'tag-aligned'],
+    'react/jsx-max-depth': ['error', { max: 2 }],
+    'react/jsx-tag-spacing': [
+      'error',
+      {
+        beforeSelfClosing: 'proportional-always',
+        beforeClosing: 'proportional-always'
+      }
+    ],
+    'react/self-closing-comp': 'error',
+    'react/jsx-props-no-multi-spaces': 'error',
+    'react/jsx-pascal-case': 'error',
+    'react/jsx-max-props-per-line': [
+      'error',
+      {
+        maximum: 1,
+        when: 'multiline'
+      }
+    ],
+    'react/jsx-first-prop-new-line': [
+      'error', 'multiline-multiprop'
+    ],
+    'react/jsx-curly-brace-presence': [
+      'error',
+      {
+        props: 'never',
+        children: 'never'
+      }
+    ],
+    'react/jsx-wrap-multilines': [
+      'error', 'parens-new-line'
+    ]
   }
 }

@@ -1,32 +1,37 @@
+import UserStatus from 'components/UserStatus'
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
+import { Appbar, Text } from 'react-native-paper'
 
-import EditScreenInfo from 'components/EditScreenInfo'
-import { Text, View } from 'components/Themed'
-
-export default function TabOneScreen () {
+export default function BasicInfoScreen () {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+    <View style={styles.root}>
+      <Appbar.Header>
+        <Appbar.Content
+          title="首页"
+        />
+      </Appbar.Header>
+      <ScrollView style={styles.container}>
+        <View style={styles.text}>
+          <Text variant='headlineLarge'>欢迎来到科中</Text>
+          <Text variant='bodyLarge'>
+            你好
+          </Text>
+        </View>
+        <UserStatus />
+      </ScrollView>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1
+  },
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    flex: 1
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold'
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%'
+  text: {
+    padding: 12
   }
 })
