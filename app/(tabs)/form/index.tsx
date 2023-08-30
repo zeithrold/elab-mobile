@@ -1,8 +1,7 @@
-import FormEntry from 'components/FormEntry'
-import FormTitle from 'components/FormTitle'
+import FormEntry from 'components/form/FormEntry'
+import FormTitle from 'components/form/FormTitle'
 import React from 'react'
 import { ScrollView } from 'react-native'
-import { Text } from 'react-native-paper'
 
 export default function IndexScreen () {
   return (

@@ -1,13 +1,13 @@
+import TicketForm from 'components/form/ticket/TicketForm'
+import TicketTitle from 'components/form/ticket/TicketTitle'
 import React from 'react'
-import { View } from 'react-native'
-import { Text } from 'react-native-paper'
+import { ScrollView } from 'react-native'
 
 export default function TicketScreen () {
   return (
-    <View>
-      <Text>
-        Hello, world
-      </Text>
-    </View>
+    <ScrollView>
+      <TicketTitle />
+      <TicketForm />
+    </ScrollView>
   )
 }

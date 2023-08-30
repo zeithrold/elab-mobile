@@ -4,7 +4,7 @@ import { Appbar } from 'react-native-paper'
 import { type NativeStackHeaderProps } from '@react-navigation/native-stack'
 
 function BackAction () {
-  return <Appbar.BackAction onPress={() => { router.replace('/form') }} />
+  return <Appbar.BackAction onPress={() => { router.back() }} />
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

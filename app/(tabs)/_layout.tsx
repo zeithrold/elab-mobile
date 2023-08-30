@@ -19,7 +19,7 @@ export default function TabLayout () {
         name='form'
         options={{
           title: '报名',
-          tabBarIcon: 'text-long'
+          tabBarIcon: 'fountain-pen-tip'
         }}
       />
       <MaterialTabs.Screen
