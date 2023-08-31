@@ -4,8 +4,10 @@ import { MD3DarkTheme, MD3LightTheme, PaperProvider } from 'react-native-paper'
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
-import { useColorScheme } from 'react-native'
+import { useColorScheme, AppState, type AppStateStatus } from 'react-native'
+import NetInfo from '@react-native-community/netinfo'
 import Colors from 'constants/Colors'
+import { SWRConfig } from 'swr'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -42,9 +44,44 @@ export default function RootLayout () {
     return null
   }
   return (
-    <Suspense>
-      <RootLayoutNav />
-    </Suspense>
+    <SWRConfig
+      value={{
+        provider: () => new Map(),
+        isVisible: () => { return true },
+        initFocus (callback) {
+          let appState = AppState.currentState
+
+          const onAppStateChange = (nextAppState: AppStateStatus) => {
+            /* 如果正在从后台或非 active 模式恢复到 active 模式 */
+            if (appState.match(/inactive|background/) && nextAppState === 'active') {
+              callback()
+            }
+            appState = nextAppState
+          }
+
+          // 订阅 app 状态更改事件
+          const subscription = AppState.addEventListener('change', onAppStateChange)
+
+          return () => {
+            subscription.remove()
+          }
+        },
+        initReconnect (callback) {
+          const unsubscribe = NetInfo.addEventListener(state => {
+            if (state.isConnected) {
+              callback()
+            }
+          })
+          return () => {
+            unsubscribe()
+          }
+        }
+      }}
+    >
+      <Suspense>
+        <RootLayoutNav />
+      </Suspense>
+    </SWRConfig>
   )
 }
 
