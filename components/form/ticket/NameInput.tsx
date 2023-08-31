@@ -17,6 +17,7 @@ const NameInput = observer(() => {
       style={styles.item}
     >
       <TextInput
+        disabled={ticket.loading}
         label="姓名"
         value={ticket.name}
         onChangeText={(text) => { ticket.setName(text) }}

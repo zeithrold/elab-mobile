@@ -1,7 +1,9 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import { useStatus } from 'lib/hooks'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { List, Text, TouchableRipple, useTheme } from 'react-native-paper'
+import { home } from 'store'
 
 const description = {
   complete: '您已完成科中报名，请点击下方查看二维码以备面试时进行核验。',
@@ -64,8 +66,19 @@ function TextContainer ({ complete }: { complete: boolean }) {
   )
 }
 
+// eslint-disable-next-line complexity
 export default function TotalStatus () {
-  const [complete, setComplete] = React.useState(false)
+  const { data, isLoading, error } = useStatus()
+  const totalStatus =
+    data?.room_selection &&
+    data.text_form &&
+    data.ticket
+  React.useEffect(() => {
+    home.setTotalLoading(isLoading)
+  }, [isLoading])
+  React.useEffect(() => {
+    if (error) console.error({ error })
+  }, [error])
   const {
     colors: {
       primaryContainer,
@@ -74,24 +87,20 @@ export default function TotalStatus () {
   } = useTheme()
   return (
     <View>
-      <TouchableRipple
-        style={[
-          styles.root,
-          {
-            backgroundColor: complete ? primaryContainer : errorContainer
-          }
-        ]}
-        onPress={() => {
-          setComplete(!complete)
-        }}
-      >
-        <View style={styles.container}>
-          <Icon complete={complete} />
-          <TextContainer complete={complete} />
-        </View>
-      </TouchableRipple>
+      {totalStatus !== undefined
+        ? <TouchableRipple
+            style={[styles.root,
+              { backgroundColor: totalStatus ? primaryContainer : errorContainer }
+            ]}
+          >
+          <View style={styles.container}>
+            <Icon complete={totalStatus} />
+            <TextContainer complete={totalStatus} />
+          </View>
+        </TouchableRipple>
+        : null}
       {
-        complete
+        totalStatus
           ? <QrCodeViewListItem />
           : null
       }

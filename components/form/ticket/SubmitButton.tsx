@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { TouchableRipple, Text, useTheme } from 'react-native-paper'
+import { ticket } from 'store'
 
 const SubmitButton = observer(() => {
   const {
@@ -13,6 +14,7 @@ const SubmitButton = observer(() => {
   } = useTheme()
   return (
     <TouchableRipple
+      disabled={ticket.loading}
       style={[
         styles.item,
         {

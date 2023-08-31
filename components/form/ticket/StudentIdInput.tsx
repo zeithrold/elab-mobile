@@ -28,6 +28,7 @@ const StudentIdInput = observer(() => {
       style={styles.item}
     >
       <TextInput
+        disabled={ticket.loading}
         label="学号"
         value={ticket.student_id}
         onChangeText={(text) => {

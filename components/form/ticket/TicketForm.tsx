@@ -7,8 +7,25 @@ import ClassInput from './ClassInput'
 import ContactInput from './ContactInput'
 import SubmitButton from './SubmitButton'
 import { Divider } from 'react-native-paper'
+import { useTicket } from 'lib/hooks'
+import { useEffectOnce } from 'usehooks-ts'
+import { ticket as ticketStore } from 'store'
 
 export default function TicketForm () {
+  const { data, trigger } = useTicket()
+  useEffectOnce(
+    React.useCallback(() => {
+      console.log('useEffectOnce Triggered')
+      ticketStore.setLoading(true)
+      trigger()
+        .then((ticket) => {
+          ticketStore.setTicket(ticket)
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+    }, [data])
+  )
   return (
     <View style={styles.container}>
       <NameInput />

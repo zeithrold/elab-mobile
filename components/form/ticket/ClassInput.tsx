@@ -17,6 +17,7 @@ const ClassInput = observer(() => {
       style={styles.item}
     >
       <TextInput
+        disabled={ticket.loading}
         label="班级"
         placeholder='例如：电2301、未来2301、智创2301'
         value={ticket.class_name}

@@ -17,9 +17,7 @@
     }
   },
   "submit": {
-    "preview": {
-    },
-    "production": {
-    }
+    "preview": {},
+    "production": {}
   }
 }

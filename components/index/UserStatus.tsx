@@ -1,10 +1,10 @@
 import { router } from 'expo-router'
 import React from 'react'
-import useSWR from 'swr'
-import { StyleSheet, View } from 'react-native'
+import { Alert, StyleSheet, View } from 'react-native'
 import { List, useTheme } from 'react-native-paper'
-import { ApplyV1 } from 'lib/v1'
-import { useAuth0 } from 'react-native-auth0'
+import { type Status } from 'type'
+import { home } from 'store'
+import { useStatus } from 'lib/hooks'
 
 interface ItemContent {
   title: string
@@ -18,7 +18,7 @@ const items: Record<string, ItemContent> = {
     description: '填写姓名、学号等基本信息。',
     routerRoute: '/form/ticket'
   },
-  text_form: {
+  textform: {
     title: '表单填报',
     description: '填写一些问题的回答。',
     routerRoute: '/form/textform'
@@ -61,41 +61,39 @@ function Item ({ item, status }: { item: ItemContent, status: boolean }) {
   )
 }
 
-function ItemList ({ status }: { status: Record<string, boolean> }) {
+function ItemList ({ status }: { status: Status }) {
   return (
     <>
       {
-        Object.entries(items).map(([key, item]) => (
-          <Item
-            key={key}
-            item={item}
-            status={status[key]}
-          />
-        ))
+        Object.entries(items).map(([key, item]) => {
+          return (
+            <Item
+              key={key}
+              item={item}
+              status={status[key]}
+            />
+          )
+        })
       }
     </>
   )
 }
 
 export default function UserStatus () {
-  const { getCredentials } = useAuth0()
-  const [accessToken, setAccessToken] = React.useState('')
-  getCredentials()
-    .then((credential) => {
-      if (!credential) return
-      setAccessToken(credential.accessToken)
-    })
-    .catch(() => {})
-  const applyApi = new ApplyV1(accessToken)
-  const { data, isLoading, isError } = useSWR('/v1/apply/status', async () => await applyApi.getStatus())
+  const { data, isLoading, error } = useStatus()
   React.useEffect(() => {
-    console.log(data)
-  }, [data])
+    home.setUserLoading(isLoading)
+    // console.log(data)
+  }, [isLoading, data])
+  React.useEffect(() => {
+    if (error) Alert.alert('错误', error?.message ?? '未知错误')
+  }, [error])
+
   return (
     <View style={styles.container}>
       <List.Subheader>科中报名清单</List.Subheader>
       {
-        isLoading
+        data === undefined
           ? null
           : <ItemList status={data} />
       }

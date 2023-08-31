@@ -20,7 +20,7 @@ class ApiV1 {
 
   constructor (accessToken: string) {
     this.accessToken = accessToken
-    this.client = new axios.Axios({
+    this.client = axios.create({
       baseURL: this.endpoint,
       headers: {
         Authorization: 'Bearer ' + this.accessToken

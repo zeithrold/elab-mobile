@@ -28,6 +28,7 @@ const ContactInput = observer(() => {
       style={styles.item}
     >
       <TextInput
+        disabled={ticket.loading}
         label="联系方式"
         placeholder='例如：18888888888'
         value={ticket.contact}
