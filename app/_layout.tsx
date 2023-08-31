@@ -8,6 +8,8 @@ import { useColorScheme, AppState, type AppStateStatus } from 'react-native'
 import NetInfo from '@react-native-community/netinfo'
 import Colors from 'constants/Colors'
 import { SWRConfig } from 'swr'
+import { Provider } from 'context/auth'
+import { Auth0Provider } from 'react-native-auth0'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -28,7 +30,6 @@ export default function RootLayout () {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...MaterialCommunityIcons.font
   })
-
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error
@@ -79,7 +80,9 @@ export default function RootLayout () {
       }}
     >
       <Suspense>
-        <RootLayoutNav />
+        <Provider>
+          <RootLayoutNav />
+        </Provider>
       </Suspense>
     </SWRConfig>
   )
@@ -93,19 +96,30 @@ function RootLayoutNav () {
       : { ...MD3LightTheme, colors: Colors.light }
 
   return (
-    <PaperProvider theme={paperTheme}>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen
-            name="(tabs)"
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name='(auth)'
-            options={{ headerShown: false, presentation: 'modal' }}
-          />
-        </Stack>
-      </ThemeProvider>
-    </PaperProvider>
+    <Auth0Provider
+      domain={process.env.EXPO_PUBLIC_AUTH0_DOMAIN as string}
+      clientId={process.env.EXPO_PUBLIC_AUTH0_CLIENT_ID as string}
+    >
+      <PaperProvider theme={paperTheme}>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <Stack
+            screenOptions={{
+              headerShown: false
+            }}
+          >
+            {/* eslint-disable-next-line react/jsx-max-depth */}
+            <Stack.Screen
+              name='signin'
+              options={{ headerShown: false, presentation: 'modal' }}
+            />
+            {/* eslint-disable-next-line react/jsx-max-depth */}
+            <Stack.Screen
+              name="(tabs)"
+              options={{ headerShown: false }}
+            />
+          </Stack>
+        </ThemeProvider>
+      </PaperProvider>
+    </Auth0Provider>
   )
 }

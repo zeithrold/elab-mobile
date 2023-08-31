@@ -13,17 +13,17 @@ const items: Record<string, ItemContent> = {
   ticket: {
     title: '基本信息填报',
     description: '填写姓名、学号等基本信息。',
-    routerRoute: '/(tabs)/form/ticket'
+    routerRoute: '/form/ticket'
   },
   text_form: {
     title: '表单填报',
     description: '填写一些问题的回答。',
-    routerRoute: '/(tabs)/form/textform'
+    routerRoute: '/form/textform'
   },
   interview: {
     title: '面试场次选择',
     description: '选择面试场次。',
-    routerRoute: '/index'
+    routerRoute: '/room'
   }
 }
 

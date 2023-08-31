@@ -14,12 +14,12 @@ const entryContent: Record<string, Entry> = {
   ticket: {
     icon: 'account',
     title: '基本信息',
-    route: '/(tabs)/form/ticket'
+    route: '/form/ticket'
   },
   textForm: {
     icon: 'file-question',
     title: '表单填报',
-    route: '/(tabs)/form/textform'
+    route: '/form/textform'
   }
 }
 
