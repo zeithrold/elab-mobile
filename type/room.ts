@@ -1,5 +1,5 @@
 interface Room {
-  room_id: string
+  id: string
   name: string
   time: string
   occupancy: number
@@ -17,9 +17,14 @@ interface GetRoomDateListResponse {
   dates: string[]
 }
 
+interface GetRoomSelectionResponse {
+  id: string
+}
+
 export type {
   Room,
   RoomList,
   GetRoomListResponse,
+  GetRoomSelectionResponse,
   GetRoomDateListResponse
 }

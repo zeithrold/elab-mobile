@@ -14,7 +14,7 @@ interface Question {
   submitted: boolean
 }
 
-interface GetQuestionResponse {
+interface GetQuestionListResponse {
   questions: Question[]
 }
 
@@ -26,6 +26,6 @@ export type {
   Question,
   TextForm,
   UpdateTextFormRequest,
-  GetQuestionResponse,
+  GetQuestionListResponse,
   GetTextFormResponse
 }

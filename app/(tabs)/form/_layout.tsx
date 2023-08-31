@@ -50,7 +50,7 @@ export default function FormLayout () {
         }}
       />
       <Stack.Screen
-        name='answeredit'
+        name='answer/[id]'
         options={{
           headerShown: false,
           presentation: 'modal'

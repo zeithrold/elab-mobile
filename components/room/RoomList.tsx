@@ -16,10 +16,10 @@ const RoomListRadio = observer((props: RoomListItemProps) => {
   return (
     <RadioButton.Android
       {...props}
-      value={room.room_id}
-      status={roomStore.selected === room.room_id ? 'checked' : 'unchecked'}
+      value={room.id}
+      status={roomStore.selected === room.id ? 'checked' : 'unchecked'}
       onPress={() => {
-        roomStore.setSelected(room.room_id)
+        roomStore.setSelected(room.id)
       }}
     />
   )
@@ -29,10 +29,10 @@ function RoomListItem (props: RoomListItemProps) {
   const { room } = props
   return (
     <List.Item
-      key={room.room_id}
+      key={room.id}
       title={room.name}
       onPress={() => {
-        roomStore.setSelected(room.room_id)
+        roomStore.setSelected(room.id)
       }}
       left={
         iconProps => (
@@ -56,7 +56,7 @@ function RoomListAccordion (props: { date: string, roomList: Room[] }) {
       {
         roomList.map(room => (
           <RoomListItem
-            key={room.room_id}
+            key={room.id}
             room={room}
           />
         ))

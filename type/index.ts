@@ -2,6 +2,7 @@ import {
   type Room,
   type RoomList,
   type GetRoomListResponse,
+  type GetRoomSelectionResponse,
   type GetRoomDateListResponse
 } from './room'
 import {
@@ -11,7 +12,7 @@ import {
   type Question,
   type TextForm,
   type UpdateTextFormRequest,
-  type GetQuestionResponse,
+  type GetQuestionListResponse,
   type GetTextFormResponse
 } from './textform'
 import {
@@ -23,11 +24,12 @@ export type {
   RoomList,
   GetRoomListResponse,
   GetRoomDateListResponse,
+  GetRoomSelectionResponse,
   Status,
   Question,
   TextForm,
   UpdateTextFormRequest,
-  GetQuestionResponse,
+  GetQuestionListResponse,
   GetTextFormResponse,
   Ticket
 }
