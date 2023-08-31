@@ -11,13 +11,12 @@ const AuthContext = React.createContext(null)
 // }
 
 // This hook will protect the route access based on user authentication.
-function useProtectedRoute (user: User | null) {
+function useProtectedRoute (user: User | null, isLoading: boolean) {
   const segments = useSegments()
   const navigationState = useRootNavigationState()
   // eslint-disable-next-line complexity
   React.useEffect(() => {
-    if (!navigationState?.key) return
-    console.log(user)
+    if (!navigationState?.key || isLoading) return
     // const inAuthGroup = segments[0] === '(auth)'
     const inAuthGroup = segments[0] === 'signin'
     if (
@@ -47,11 +46,8 @@ function logOutErrorHandler (error: Error) {
 export function Provider ({ children }: {
   children: React.ReactNode
 }) {
-  const { user } = useAuth0()
-  useProtectedRoute(user)
-  React.useEffect(() => {
-    console.log('context.auth.Provider: user changed', user)
-  }, [user])
+  const { user, isLoading } = useAuth0()
+  useProtectedRoute(user, isLoading)
   return (
     <AuthContext.Provider value={null}>
       {children}

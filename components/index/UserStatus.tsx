@@ -1,7 +1,10 @@
 import { router } from 'expo-router'
 import React from 'react'
+import useSWR from 'swr'
 import { StyleSheet, View } from 'react-native'
 import { List, useTheme } from 'react-native-paper'
+import { ApplyV1 } from 'lib/v1'
+import { useAuth0 } from 'react-native-auth0'
 
 interface ItemContent {
   title: string
@@ -75,15 +78,27 @@ function ItemList ({ status }: { status: Record<string, boolean> }) {
 }
 
 export default function UserStatus () {
-  const [status, setStatus] = React.useState({
-    ticket: false,
-    text_form: false,
-    interview: false
-  })
+  const { getCredentials } = useAuth0()
+  const [accessToken, setAccessToken] = React.useState('')
+  getCredentials()
+    .then((credential) => {
+      if (!credential) return
+      setAccessToken(credential.accessToken)
+    })
+    .catch(() => {})
+  const applyApi = new ApplyV1(accessToken)
+  const { data, isLoading, isError } = useSWR('/v1/apply/status', async () => await applyApi.getStatus())
+  React.useEffect(() => {
+    console.log(data)
+  }, [data])
   return (
     <View style={styles.container}>
       <List.Subheader>科中报名清单</List.Subheader>
-      <ItemList status={status} />
+      {
+        isLoading
+          ? null
+          : <ItemList status={data} />
+      }
     </View>
   )
 }

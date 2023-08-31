@@ -80,9 +80,7 @@ export default function RootLayout () {
       }}
     >
       <Suspense>
-        <Provider>
-          <RootLayoutNav />
-        </Provider>
+        <RootLayoutNav />
       </Suspense>
     </SWRConfig>
   )
@@ -101,24 +99,28 @@ function RootLayoutNav () {
       clientId={process.env.EXPO_PUBLIC_AUTH0_CLIENT_ID as string}
     >
       <PaperProvider theme={paperTheme}>
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Stack
-            screenOptions={{
-              headerShown: false
-            }}
-          >
-            {/* eslint-disable-next-line react/jsx-max-depth */}
-            <Stack.Screen
-              name='signin'
-              options={{ headerShown: false, presentation: 'modal' }}
-            />
-            {/* eslint-disable-next-line react/jsx-max-depth */}
-            <Stack.Screen
-              name="(tabs)"
-              options={{ headerShown: false }}
-            />
-          </Stack>
-        </ThemeProvider>
+
+        <Provider>
+          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <Stack
+              screenOptions={{
+                headerShown: false
+              }}
+            >
+              {/* eslint-disable-next-line react/jsx-max-depth */}
+              <Stack.Screen
+                name='signin'
+                options={{ headerShown: false, presentation: 'modal' }}
+              />
+              {/* eslint-disable-next-line react/jsx-max-depth */}
+              <Stack.Screen
+                name="(tabs)"
+                options={{ headerShown: false }}
+              />
+            </Stack>
+          </ThemeProvider>
+
+        </Provider>
       </PaperProvider>
     </Auth0Provider>
   )
