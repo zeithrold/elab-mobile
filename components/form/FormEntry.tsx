@@ -1,8 +1,9 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
-import { router } from 'expo-router'
+import { router, useFocusEffect } from 'expo-router'
+import { useStatus } from 'lib/hooks'
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { List, Text, TouchableRipple, useTheme } from 'react-native-paper'
+import { ActivityIndicator, List, Text, TouchableRipple, useTheme } from 'react-native-paper'
 
 interface Entry {
   icon: any
@@ -19,20 +20,26 @@ const entryContent: Record<string, Entry> = {
   textForm: {
     icon: 'file-question',
     title: '表单填报',
-    route: '/form/textform'
+    route: '/form/textform/home'
   }
 }
 
 function EntryButtonGroup () {
-  const [status, setStatus] = React.useState({
-    ticket: true,
-    text_form: false,
-    interview: false
-  })
+  const { data: status, isLoading, mutate } = useStatus()
+  useFocusEffect(React.useCallback(() => {
+    void mutate()
+  }, []))
   return (
     <View style={styles.container}>
-      <EntryButton {...entryContent.ticket} status={status.ticket} />
-      <EntryButton {...entryContent.textForm} status={status.text_form} />
+      {
+        isLoading || status === undefined
+          ? <ActivityIndicator />
+          : <>
+            <EntryButton {...entryContent.ticket} status={status.ticket} />
+            <EntryButton {...entryContent.textForm} status={status.textform} />
+          </>
+      }
+
     </View>
   )
 }

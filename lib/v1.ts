@@ -74,7 +74,7 @@ class ApplyV1 extends ApiV1 {
   }
 
   async setTextForm (id: string, answer: string) {
-    return (await this.client.post(`/textform/${id}`, {
+    return (await this.client.patch(`/textform/${id}`, {
       answer
     })).data
   }
@@ -91,8 +91,8 @@ class ApplyV1 extends ApiV1 {
     return (await this.client.get('/ticket')).data
   }
 
-  async setTicket (ticket: Ticket): Promise<void> {
-    return (await this.client.post('/ticket', ticket)).data
+  async updateTicket (ticket: Ticket): Promise<void> {
+    return (await this.client.patch('/ticket', ticket)).data
   }
 }
 

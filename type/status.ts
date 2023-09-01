@@ -1,7 +1,7 @@
 interface Status extends Record<string, boolean> {
   ticket: boolean
   room_selection: boolean
-  text_form: boolean
+  textform: boolean
 }
 
 export type {

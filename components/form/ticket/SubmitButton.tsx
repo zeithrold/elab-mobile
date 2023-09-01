@@ -1,11 +1,56 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import { useRouter } from 'expo-router'
+import { ApplyV1, useAccessToken } from 'lib'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
-import { TouchableRipple, Text, useTheme } from 'react-native-paper'
+import { Alert, StyleSheet, View } from 'react-native'
+import { TouchableRipple, Text, useTheme, ActivityIndicator } from 'react-native-paper'
 import { ticket } from 'store'
 
+const ButtonIcon = observer(() => {
+  const {
+    colors: {
+      onPrimary
+    }
+  } = useTheme()
+  return (
+    <View style={styles.icon}>
+      {
+        !ticket.loading
+          ? <MaterialCommunityIcons
+              name='content-save'
+              color={onPrimary}
+              size={30}
+            />
+          : <ActivityIndicator color={onPrimary} />
+      }
+    </View>
+  )
+})
+
+async function submitAction (accessToken: string) {
+  const applyV1 = new ApplyV1(accessToken)
+  ticket.setLoading(true)
+  await applyV1.updateTicket({
+    name: ticket.name,
+    class_name: ticket.class_name,
+    group: ticket.group,
+    contact: ticket.contact,
+    student_id: ticket.student_id
+  })
+  ticket.setLoading(false)
+}
+
+function errorHandler (error: any) {
+  console.error('出现了问题', error)
+  Alert.alert('更新失败',
+    '请检查网络连接或稍后再试。'
+  )
+}
+
 const SubmitButton = observer(() => {
+  const router = useRouter()
+  const { data: accessToken, isLoading } = useAccessToken()
   const {
     colors: {
       primary,
@@ -21,15 +66,17 @@ const SubmitButton = observer(() => {
           backgroundColor: primary
         }
       ]}
-      onPress={() => {}}
+      onPress={() => {
+        if (isLoading || accessToken === undefined) return
+        submitAction(accessToken)
+          .then(() => {
+            router.back()
+          })
+          .catch(errorHandler)
+      }}
     >
       <View style={styles.container}>
-        <MaterialCommunityIcons
-          name='content-save'
-          color={onPrimary}
-          size={30}
-          style={styles.icon}
-        />
+        <ButtonIcon />
         <Text
           variant='headlineSmall'
           style={[styles.label, {

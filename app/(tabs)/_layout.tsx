@@ -16,10 +16,17 @@ export default function TabLayout () {
         }}
       />
       <MaterialTabs.Screen
-        name='form'
+        name='ticket'
         options={{
-          title: '报名',
-          tabBarIcon: 'fountain-pen-tip'
+          title: '基本信息',
+          tabBarIcon: 'card-account-details'
+        }}
+      />
+      <MaterialTabs.Screen
+        name='textform'
+        options={{
+          title: '表单',
+          tabBarIcon: 'file-document-edit'
         }}
       />
       <MaterialTabs.Screen

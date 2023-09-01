@@ -71,7 +71,7 @@ export default function TotalStatus () {
   const { data, isLoading, error } = useStatus()
   const totalStatus =
     data?.room_selection &&
-    data.text_form &&
+    data.textform &&
     data.ticket
   React.useEffect(() => {
     home.setTotalLoading(isLoading)

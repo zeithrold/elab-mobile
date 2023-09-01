@@ -4,7 +4,7 @@ interface TextForm {
 }
 
 interface UpdateTextFormRequest {
-  text_form: TextForm[]
+  textform: TextForm[]
 }
 
 interface Question {
@@ -19,7 +19,7 @@ interface GetQuestionListResponse {
 }
 
 interface GetTextFormResponse {
-  text_form: TextForm[]
+  textform: TextForm[]
 }
 
 export type {

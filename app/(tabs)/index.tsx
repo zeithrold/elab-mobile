@@ -1,11 +1,13 @@
 import IndexTitle from 'components/index/IndexTitle'
 import TotalStatus from 'components/index/TotalStatus'
 import UserStatus from 'components/index/UserStatus'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
-import { Appbar } from 'react-native-paper'
+import { ActivityIndicator, Appbar } from 'react-native-paper'
+import { home } from 'store'
 
-export default function BasicInfoScreen () {
+const BasicInfoScreen = observer(() => {
   return (
     <View style={styles.root}>
       <Appbar.Header>
@@ -15,12 +17,19 @@ export default function BasicInfoScreen () {
       </Appbar.Header>
       <ScrollView style={styles.container}>
         <IndexTitle />
+        {
+          home.loading
+            ? <ActivityIndicator />
+            : null
+        }
         <TotalStatus />
         <UserStatus />
       </ScrollView>
     </View>
   )
-}
+})
+
+export default BasicInfoScreen
 
 const styles = StyleSheet.create({
   root: {

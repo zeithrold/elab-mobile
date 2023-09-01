@@ -1,4 +1,4 @@
-import { router } from 'expo-router'
+import { router, useFocusEffect } from 'expo-router'
 import React from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import { List, useTheme } from 'react-native-paper'
@@ -16,12 +16,12 @@ const items: Record<string, ItemContent> = {
   ticket: {
     title: '基本信息填报',
     description: '填写姓名、学号等基本信息。',
-    routerRoute: '/form/ticket'
+    routerRoute: '/ticket'
   },
   textform: {
     title: '表单填报',
     description: '填写一些问题的回答。',
-    routerRoute: '/form/textform'
+    routerRoute: '/textform/home'
   },
   interview: {
     title: '面试场次选择',
@@ -80,7 +80,7 @@ function ItemList ({ status }: { status: Status }) {
 }
 
 export default function UserStatus () {
-  const { data, isLoading, error } = useStatus()
+  const { data, isLoading, error, mutate } = useStatus()
   React.useEffect(() => {
     home.setUserLoading(isLoading)
     // console.log(data)
@@ -88,14 +88,18 @@ export default function UserStatus () {
   React.useEffect(() => {
     if (error) Alert.alert('错误', error?.message ?? '未知错误')
   }, [error])
-
+  useFocusEffect(React.useCallback(() => {
+    void mutate()
+  }, []))
   return (
     <View style={styles.container}>
-      <List.Subheader>科中报名清单</List.Subheader>
       {
         data === undefined
           ? null
-          : <ItemList status={data} />
+          : <>
+            <List.Subheader>科中报名清单</List.Subheader>
+            <ItemList status={data} />
+          </>
       }
     </View>
   )
