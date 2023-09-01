@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from 'expo-router'
-import { useAnswer, useTextForm } from 'lib/hooks'
+import { useAnswer } from 'lib/hooks'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
@@ -9,32 +9,21 @@ import { useEffectOnce } from 'usehooks-ts'
 
 const EditorTextField = observer(() => {
   const { id } = useLocalSearchParams<{ id: string }>()
-  const { isLoading: isTextFormLoading } = useTextForm()
   const { trigger } = useAnswer(id)
-  const [isComponentLoaded, setIsComponentLoaded] = React.useState(false)
 
-  useEffectOnce(
-    React.useCallback(() => {
-      setIsComponentLoaded(false)
-    }, [isComponentLoaded])
-  )
-
-  React.useEffect(() => {
-    if (isComponentLoaded || isTextFormLoading) return
+  useEffectOnce(React.useCallback(() => {
+    textForm.setTextFormLoading(true)
     trigger()
       .then((answer) => {
         console.log({ answer })
         textForm.setAnswer(answer)
-        textForm.setLoading(false)
+        textForm.setTextFormLoading(false)
         textForm.setModified(false)
       })
       .catch((err) => {
         console.error(err)
       })
-      .finally(() => {
-        setIsComponentLoaded(true)
-      })
-  }, [isComponentLoaded, isTextFormLoading])
+  }, [id]))
 
   return (
     <View
@@ -44,7 +33,7 @@ const EditorTextField = observer(() => {
         label="你的回答"
         placeholder='你的回答将会被用作面试依据。'
         multiline
-        disabled={textForm.loading}
+        disabled={textForm.textFormLoading}
         value={textForm.answer}
         onChangeText={(text) => {
           textForm.setAnswer(text)

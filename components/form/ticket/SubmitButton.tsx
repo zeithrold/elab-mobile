@@ -1,6 +1,7 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { useRouter } from 'expo-router'
-import { ApplyV1, useAccessToken } from 'lib'
+import { ApplyV1 } from 'lib'
+import { useAccessToken } from 'lib/hooks'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Alert, StyleSheet, View } from 'react-native'

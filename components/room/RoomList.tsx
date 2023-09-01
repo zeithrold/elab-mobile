@@ -1,9 +1,10 @@
 import React from 'react'
 import { View } from 'react-native'
-import { List, RadioButton } from 'react-native-paper'
+import { ActivityIndicator, List, RadioButton } from 'react-native-paper'
 import { type Room } from 'type'
 import { room as roomStore } from 'store'
 import { observer } from 'mobx-react-lite'
+import { useRoomList } from 'lib/hooks'
 
 interface RoomListItemProps {
   room: Room
@@ -34,6 +35,13 @@ function RoomListItem (props: RoomListItemProps) {
       onPress={() => {
         roomStore.setSelected(room.id)
       }}
+      descriptionNumberOfLines={4}
+      description={[
+        room.capacity,
+        '人',
+        ' ',
+        room.location
+      ]}
       left={
         iconProps => (
           <RoomListRadio
@@ -51,6 +59,7 @@ function RoomListAccordion (props: { date: string, roomList: Room[] }) {
   return (
     <List.Accordion
       key={date}
+      id={date}
       title={date}
     >
       {
@@ -66,19 +75,26 @@ function RoomListAccordion (props: { date: string, roomList: Room[] }) {
 }
 
 export default function RoomList () {
-  const [roomListByDate, setRoomListByDate] = React.useState<Record<string, Room[]>>({})
+  const { data: roomListByDate, isLoading } = useRoomList()
   return (
-    <View>
-      <List.AccordionGroup>
-        {
-          Object.entries(roomListByDate).map(([date, roomList]) => (
-            <RoomListAccordion
-              key={date}
-              date={date}
-              roomList={roomList}
-            />
-          ))}
-      </List.AccordionGroup>
+    <View style={{ marginVertical: 16 }}>
+      {
+        isLoading
+          ? <ActivityIndicator />
+          : null
+      }
+      {
+        roomListByDate !== undefined
+          ? (<List.AccordionGroup>
+            {Object.entries(roomListByDate).map(([date, roomList]) => (
+              <RoomListAccordion
+                key={date}
+                date={date}
+                roomList={roomList}
+              />
+            ))}
+          </List.AccordionGroup>)
+          : null}
     </View>
   )
 }

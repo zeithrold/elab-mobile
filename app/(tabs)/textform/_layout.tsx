@@ -14,14 +14,14 @@ export default function TextFormLayout () {
       }}
     >
       <Stack.Screen
+        name='home'
+      />
+      <Stack.Screen
         name='[id]'
         options={{
           presentation: 'modal',
           headerShown: false
         }}
-      />
-      <Stack.Screen
-        name='home'
       />
     </Stack>
   )

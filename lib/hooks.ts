@@ -1,7 +1,10 @@
+/* eslint-disable max-lines */
 import { useAuth0 } from 'react-native-auth0'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 import { ApplyV1 } from './v1'
+import { type Room } from 'type'
+import axios from 'axios'
 
 const useAccessToken = () => {
   const { getCredentials } = useAuth0()
@@ -85,6 +88,65 @@ const useAnswer = (id: string) => {
   )
 }
 
+const useRoomDateList = () => {
+  const { data: accessToken } = useAccessToken()
+  return useSWR(
+    () => accessToken ? ['apply.getRoomDateList', accessToken] : null,
+    async ([_, accessToken]) => {
+      const applyApi = new ApplyV1(accessToken)
+      const roomDateList = await applyApi.getRoomDateList()
+      return roomDateList.dates
+    }
+  )
+}
+
+const getRoomListByDate = async (accessToken: string, roomDateList: string[]): Promise<Record<string, Room[]>> => {
+  const applyApi = new ApplyV1(accessToken)
+  const taskList: Array<Promise<Room[]>> = []
+  for (const roomDate of roomDateList) {
+    taskList.push((async () => {
+      const roomList = await applyApi.getRoomList(roomDate)
+      return roomList.rooms
+    })())
+  }
+  const roomList = await Promise.all(taskList)
+  const roomListByDate: Record<string, Room[]> = {}
+  for (const [index, roomDate] of roomDateList.entries()) {
+    roomListByDate[roomDate] = roomList[index]
+  }
+  return roomListByDate
+}
+
+const useRoomList = () => {
+  const { data: accessToken } = useAccessToken()
+  const { data: roomDate } = useRoomDateList()
+  return useSWR(
+    () => roomDate && accessToken ? ['apply.getRoomList', accessToken, roomDate] : null,
+    async ([_, accessToken, roomDate]) => {
+      const roomList = await getRoomListByDate(accessToken, roomDate)
+      return roomList
+    }
+  )
+}
+
+const useRoomSelection = () => {
+  const { data: accessToken } = useAccessToken()
+  return useSWR(
+    () => accessToken ? ['apply.getRoomSelection', accessToken] : null,
+    async ([_, accessToken]) => {
+      const applyApi = new ApplyV1(accessToken)
+      try {
+        const roomSelection = await applyApi.getRoomSelection()
+        return roomSelection
+      } catch (e) {
+        if (axios.isAxiosError(e) && e.status === 404) {
+          return null
+        }
+      }
+    }
+  )
+}
+
 export {
   useAccessToken,
   useStatus,
@@ -92,5 +154,8 @@ export {
   useQuestion,
   useQuestionList,
   useTextForm,
-  useAnswer
+  useAnswer,
+  useRoomDateList,
+  useRoomList,
+  useRoomSelection
 }

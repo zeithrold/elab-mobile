@@ -3,7 +3,8 @@ import { makeAutoObservable } from 'mobx'
 class TextForm {
   answer = ''
   id = ''
-  loading = false
+  accessTokenLoading = false
+  textFormLoading = false
   modified = false
   constructor () {
     makeAutoObservable(this)
@@ -13,8 +14,12 @@ class TextForm {
     this.modified = modified
   }
 
-  setLoading (loading: boolean) {
-    this.loading = loading
+  setAccessTokenLoading (loading: boolean) {
+    this.accessTokenLoading = loading
+  }
+
+  setTextFormLoading (loading: boolean) {
+    this.textFormLoading = loading
   }
 
   setAnswer (answer: string) {

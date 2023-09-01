@@ -19,7 +19,7 @@ export default function SignInPage () {
           audience: process.env.EXPO_PUBLIC_AUTH0_AUDIENCE
         })
           .then(async () => {
-            router.replace('/')
+            router.replace('/index')
           })
           .catch(authorizeErrorHandler)
       }}

@@ -1,5 +1,7 @@
 import { type Router, useRouter } from 'expo-router'
-import { ApplyV1, useAccessToken } from 'lib'
+import { ApplyV1 } from 'lib'
+import { useAccessToken } from 'lib/hooks'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Alert, Platform } from 'react-native'
 import { ActivityIndicator, Appbar } from 'react-native-paper'
@@ -27,11 +29,12 @@ function notSaveAlert (router: Router) {
 
 async function handleSaveAnswer (accessToken: string) {
   const applyV1 = new ApplyV1(accessToken)
-  textForm.setLoading(true)
+  textForm.setTextFormLoading(true)
   await applyV1.setTextForm(
     textForm.id,
     textForm.answer
   )
+  textForm.setTextFormLoading(false)
 }
 
 function errorHandler (error: any) {
@@ -42,11 +45,14 @@ function errorHandler (error: any) {
 }
 
 // eslint-disable-next-line complexity
-export default function EditorAppbar () {
+const EditorAppbar = observer(() => {
   const router = useRouter()
   const { data: accessToken, isLoading: isAccessTokenLoading } = useAccessToken()
   const safeAreaHeight = useSafeAreaInsets()
-  const isLoading = textForm.loading || isAccessTokenLoading
+  React.useEffect(() => {
+    textForm.setAccessTokenLoading(isAccessTokenLoading)
+  }, [isAccessTokenLoading])
+  const isLoading = textForm.textFormLoading || textForm.accessTokenLoading
   return (
     <Appbar.Header
       statusBarHeight={
@@ -83,4 +89,6 @@ export default function EditorAppbar () {
       />
     </Appbar.Header>
   )
-}
+})
+
+export default EditorAppbar

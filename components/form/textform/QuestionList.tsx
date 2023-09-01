@@ -1,14 +1,16 @@
 import React from 'react'
 import { ActivityIndicator, List } from 'react-native-paper'
 import QuestionItem from './QuestionItem'
-import { useQuestionList } from 'lib/hooks'
+import { useQuestionList, useTextForm } from 'lib/hooks'
 import { useFocusEffect } from 'expo-router'
 
 export default function QuestionList () {
-  const { data: questions, isLoading, mutate } = useQuestionList()
+  const { data: questions, isLoading: isQuestionLoading, mutate: mutateQuestionList } = useQuestionList()
+  const { isLoading: isTextFormLoading, mutate: mutateTextForm } = useTextForm()
   useFocusEffect(React.useCallback(() => {
-    void mutate()
+    void Promise.all([mutateQuestionList(), mutateTextForm()])
   }, []))
+  const isLoading = isQuestionLoading || isTextFormLoading
   return (
     <List.Section>
       <List.Subheader>问题列表</List.Subheader>
