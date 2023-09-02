@@ -6,7 +6,8 @@ import {
   type GetTextFormResponse,
   type GetQuestionListResponse,
   type Question,
-  type Ticket
+  type Ticket,
+  type GetRoomSelectionResponse
 } from 'type'
 
 export interface PingResponse {
@@ -51,7 +52,7 @@ class ApplyV1 extends ApiV1 {
     return (await this.client.get('/room/date')).data
   }
 
-  async getRoomSelection (): Promise<GetRoomListResponse> {
+  async getRoomSelection (): Promise<GetRoomSelectionResponse> {
     return (await this.client.get('/room/selection')).data
   }
 

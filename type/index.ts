@@ -1,6 +1,7 @@
 import {
   type Room,
   type RoomList,
+  type RoomListItemProps,
   type GetRoomListResponse,
   type GetRoomSelectionResponse,
   type GetRoomDateListResponse
@@ -22,6 +23,7 @@ import {
 export type {
   Room,
   RoomList,
+  RoomListItemProps,
   GetRoomListResponse,
   GetRoomDateListResponse,
   GetRoomSelectionResponse,

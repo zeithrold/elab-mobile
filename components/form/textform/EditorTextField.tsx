@@ -15,7 +15,6 @@ const EditorTextField = observer(() => {
     textForm.setTextFormLoading(true)
     trigger()
       .then((answer) => {
-        console.log({ answer })
         textForm.setAnswer(answer)
         textForm.setTextFormLoading(false)
         textForm.setModified(false)

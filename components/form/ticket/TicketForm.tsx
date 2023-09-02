@@ -15,7 +15,6 @@ export default function TicketForm () {
   const { data, trigger } = useTicket()
   useEffectOnce(
     React.useCallback(() => {
-      console.log('useEffectOnce Triggered')
       ticketStore.setLoading(true)
       trigger()
         .then((ticket) => {
@@ -26,6 +25,7 @@ export default function TicketForm () {
         })
     }, [data])
   )
+
   return (
     <View style={styles.container}>
       <NameInput />

@@ -1,4 +1,4 @@
-import { autorun, makeAutoObservable } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 import { type Ticket } from 'type'
 
 class TicketStore implements Ticket {
@@ -63,9 +63,5 @@ class TicketStore implements Ticket {
 }
 
 const ticket = new TicketStore()
-
-autorun(() => {
-  console.log({ loading: ticket.loading })
-})
 
 export default ticket

@@ -23,7 +23,7 @@ const items: Record<string, ItemContent> = {
     description: '填写一些问题的回答。',
     routerRoute: '/textform/home'
   },
-  interview: {
+  room_selection: {
     title: '面试场次选择',
     description: '选择面试场次。',
     routerRoute: '/room'
@@ -83,7 +83,6 @@ export default function UserStatus () {
   const { data, isLoading, error, mutate } = useStatus()
   React.useEffect(() => {
     home.setUserLoading(isLoading)
-    // console.log(data)
   }, [isLoading, data])
   React.useEffect(() => {
     if (error) Alert.alert('错误', error?.message ?? '未知错误')

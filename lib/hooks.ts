@@ -4,13 +4,11 @@ import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 import { ApplyV1 } from './v1'
 import { type Room } from 'type'
-import axios from 'axios'
 
 const useAccessToken = () => {
   const { getCredentials } = useAuth0()
   return useSWR('getCredential', async () => {
     const accessToken = (await getCredentials())?.accessToken
-    // console.log(accessToken)
     return accessToken
   })
 }
@@ -22,7 +20,6 @@ const useStatus = () => {
     async ([_, accessToken]) => {
       const applyApi = new ApplyV1(accessToken)
       const status = await applyApi.getStatus()
-      // console.log(status)
       return status
     }
   )
@@ -35,7 +32,6 @@ const useTicket = () => {
     async ([_, accessToken]) => {
       const applyApi = new ApplyV1(accessToken)
       const ticket = await applyApi.getTicket()
-      // console.log(ticket)
       return ticket
     }
   )
@@ -135,14 +131,8 @@ const useRoomSelection = () => {
     () => accessToken ? ['apply.getRoomSelection', accessToken] : null,
     async ([_, accessToken]) => {
       const applyApi = new ApplyV1(accessToken)
-      try {
-        const roomSelection = await applyApi.getRoomSelection()
-        return roomSelection
-      } catch (e) {
-        if (axios.isAxiosError(e) && e.status === 404) {
-          return null
-        }
-      }
+      const roomSelection = await applyApi.getRoomSelection()
+      return roomSelection.id
     }
   )
 }

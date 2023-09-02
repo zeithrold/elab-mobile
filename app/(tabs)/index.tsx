@@ -4,12 +4,17 @@ import UserStatus from 'components/index/UserStatus'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
-import { ActivityIndicator, Appbar } from 'react-native-paper'
+import { ActivityIndicator, Appbar, useTheme } from 'react-native-paper'
 import { home } from 'store'
 
 const BasicInfoScreen = observer(() => {
+  const {
+    colors: {
+      background
+    }
+  } = useTheme()
   return (
-    <View style={styles.root}>
+    <View style={[styles.root, { backgroundColor: background }]}>
       <Appbar.Header>
         <Appbar.Content
           title="首页"

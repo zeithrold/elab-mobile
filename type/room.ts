@@ -9,6 +9,10 @@ interface Room {
 
 type RoomList = Record<string, Room[]>
 
+interface RoomListItemProps {
+  room: Room
+}
+
 interface GetRoomListResponse {
   rooms: Room[]
 }
@@ -24,6 +28,7 @@ interface GetRoomSelectionResponse {
 export type {
   Room,
   RoomList,
+  RoomListItemProps,
   GetRoomListResponse,
   GetRoomSelectionResponse,
   GetRoomDateListResponse
