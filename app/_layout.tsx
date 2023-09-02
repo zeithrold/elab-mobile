@@ -124,6 +124,11 @@ function RootLayoutNav () {
                 name="notavailable"
                 options={{ headerShown: false, presentation: 'modal' }}
               />
+              {/* eslint-disable-next-line react/jsx-max-depth */}
+              <Stack.Screen
+                name="qrcode"
+                options={{ headerShown: false, presentation: 'modal' }}
+              />
             </Stack>
           </Provider>
         </ThemeProvider>

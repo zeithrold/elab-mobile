@@ -1,4 +1,5 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import { router } from 'expo-router'
 import { useStatus } from 'lib/hooks'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
@@ -17,7 +18,9 @@ function QrCodeViewListItem () {
       left={
         props => <MaterialCommunityIcons {...props} name='qrcode' size={24} />
       }
-      onPress={() => {}}
+      onPress={() => {
+        router.push('/qrcode')
+      }}
       description='点击查看面试二维码，以备查验。'
     />
   )

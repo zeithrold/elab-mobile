@@ -1,9 +1,9 @@
-import { type Router, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 import { ApiV1 } from 'lib'
 import { useAccessToken } from 'lib/hooks'
 import React from 'react'
 import { Alert } from 'react-native'
-import auth0, { useAuth0 } from 'react-native-auth0'
+import { useAuth0 } from 'react-native-auth0'
 import { List, useTheme } from 'react-native-paper'
 
 const handleLogout = (
@@ -32,7 +32,7 @@ const handleLogout = (
 }
 
 const handleDelete = (
-  accessToken, clearCredentials: () => Promise<void>
+  accessToken: string, clearCredentials: () => Promise<void>
 ) => {
   Alert.alert(
     '真的要删除账号吗？',
@@ -90,7 +90,8 @@ const ProfileActionList = () => {
       <List.Subheader>账号设置</List.Subheader>
       <List.Item
         title='隐私政策'
-        description='我们绝不会将数据传输至第三方'
+        description='我们严格遵守隐私相关法律法规'
+        onPress={() => { router.push('https://elab-public-1301570861.cos.ap-beijing.myqcloud.com/oneelab_privacy.html') }}
       />
       <List.Item
         title='查看开源项目'
@@ -106,7 +107,11 @@ const ProfileActionList = () => {
         titleStyle={{ color: error }}
         title='删除账号'
         disabled={isLoading || !accessToken}
-        onPress={() => { handleDelete(accessToken, clearCredentials) }}
+        onPress={() => {
+          if (accessToken === undefined) return
+          handleDelete(accessToken, clearCredentials)
+        }
+        }
       />
     </List.Section>
   )

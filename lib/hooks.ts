@@ -150,6 +150,18 @@ const useConfig = () => {
   )
 }
 
+const useRoom = (id: string | undefined) => {
+  const { data: roomList } = useRoomList()
+  return useSWR(
+    () => roomList && id ? ['apply.getRoom', roomList, id] : null,
+    async ([_, roomList, id]) => {
+      const flattedRoomList = Object.values(roomList).flat()
+      const room = flattedRoomList.find((room) => room.id === id)
+      return room ?? null
+    }
+  )
+}
+
 export {
   useAccessToken,
   useStatus,
@@ -161,5 +173,6 @@ export {
   useRoomDateList,
   useRoomList,
   useRoomSelection,
-  useConfig
+  useConfig,
+  useRoom
 }
