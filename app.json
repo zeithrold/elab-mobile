@@ -85,7 +85,6 @@
         }
       ],
       "expo-localization",
-      "react-native-nfc-manager",
       [
         "@config-plugins/react-native-ble-plx",
         {
@@ -97,7 +96,8 @@
       [
         "react-native-nfc-manager",
         {
-          "nfcPermission": "请允许 $(PRODUCT_NAME) 使用NFC。"
+          "nfcPermission": "请允许 $(PRODUCT_NAME) 使用NFC。",
+          "includeNdefEntitlement": false
         }
       ]
     ],
