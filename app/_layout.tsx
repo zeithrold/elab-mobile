@@ -8,8 +8,8 @@ import { useColorScheme, AppState, type AppStateStatus } from 'react-native'
 import NetInfo from '@react-native-community/netinfo'
 import Colors from 'constants/Colors'
 import { SWRConfig } from 'swr'
-import { Provider } from 'context/auth'
 import { Auth0Provider } from 'react-native-auth0'
+import { Provider } from 'context/auth'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -99,9 +99,8 @@ function RootLayoutNav () {
       clientId={process.env.EXPO_PUBLIC_AUTH0_CLIENT_ID as string}
     >
       <PaperProvider theme={paperTheme}>
-
-        <Provider>
-          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <Provider>
             <Stack
               screenOptions={{
                 headerShown: false
@@ -118,9 +117,8 @@ function RootLayoutNav () {
                 options={{ headerShown: false }}
               />
             </Stack>
-          </ThemeProvider>
-
-        </Provider>
+          </Provider>
+        </ThemeProvider>
       </PaperProvider>
     </Auth0Provider>
   )

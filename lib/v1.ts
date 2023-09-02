@@ -7,7 +7,8 @@ import {
   type GetQuestionListResponse,
   type Question,
   type Ticket,
-  type GetRoomSelectionResponse
+  type GetRoomSelectionResponse,
+  type Config
 } from 'type'
 
 export interface PingResponse {
@@ -32,6 +33,10 @@ class ApiV1 {
   async ping (): Promise<PingResponse> {
     return (await this.client.get('')).data
   }
+
+  async deleteUser (): Promise<void> {
+    return (await this.client.delete('/auth')).data
+  }
 }
 
 class ApplyV1 extends ApiV1 {
@@ -40,7 +45,7 @@ class ApplyV1 extends ApiV1 {
     this.client.defaults.baseURL = this.endpoint + '/apply'
   }
 
-  async getConfig () {
+  async getConfig (): Promise<Config> {
     return (await this.client.get('/config')).data
   }
 

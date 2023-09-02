@@ -16,6 +16,7 @@ function useProtectedRoute (user: User | null, isLoading: boolean) {
   const navigationState = useRootNavigationState()
   // eslint-disable-next-line complexity
   React.useEffect(() => {
+    console.log(user)
     if (!navigationState?.key || isLoading) return
     // const inAuthGroup = segments[0] === '(auth)'
     const inAuthGroup = segments[0] === 'signin'

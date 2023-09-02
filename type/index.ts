@@ -20,6 +20,11 @@ import {
   type Ticket
 } from './ticket'
 
+interface Config {
+  applyBeginTime: string
+  applyEndTime: string
+}
+
 export type {
   Room,
   RoomList,
@@ -33,5 +38,6 @@ export type {
   UpdateTextFormRequest,
   GetQuestionListResponse,
   GetTextFormResponse,
-  Ticket
+  Ticket,
+  Config
 }

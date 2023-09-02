@@ -1,28 +1,24 @@
-import { View } from 'components/Themed'
-import { Text } from 'react-native-paper'
-import { StyleSheet } from 'react-native'
+import { ScrollView, StyleSheet } from 'react-native'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import ProfileTitle from './ProfileTitle'
+import ProfileActionList from './ProfileActionList'
 
 const ProfileContainer = observer(() => {
   return (
-    <View
+    <ScrollView
       style={styles.container}
     >
-      <Text
-        variant='bodyMedium'
-      >ProfileContainer
-      </Text>
-    </View>
+      <ProfileTitle />
+      <ProfileActionList />
+    </ScrollView>
   )
 })
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignContent: 'center',
-    alignItems: 'center',
-    justifyContent: 'center'
+    paddingVertical: 16
   }
 })
 

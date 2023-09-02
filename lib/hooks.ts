@@ -137,6 +137,18 @@ const useRoomSelection = () => {
   )
 }
 
+const useConfig = () => {
+  const { data: accessToken } = useAccessToken()
+  return useSWR(
+    () => accessToken ? ['apply.getConfig', accessToken] : null,
+    async ([_, accessToken]) => {
+      const applyApi = new ApplyV1(accessToken)
+      const config = await applyApi.getConfig()
+      return config
+    }
+  )
+}
+
 export {
   useAccessToken,
   useStatus,
@@ -147,5 +159,6 @@ export {
   useAnswer,
   useRoomDateList,
   useRoomList,
-  useRoomSelection
+  useRoomSelection,
+  useConfig
 }
