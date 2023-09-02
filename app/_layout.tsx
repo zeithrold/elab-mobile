@@ -10,6 +10,7 @@ import Colors from 'constants/Colors'
 import { SWRConfig } from 'swr'
 import { Auth0Provider } from 'react-native-auth0'
 import { Provider } from 'context/auth'
+import { CountDownProvider } from 'context/countdown'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -80,7 +81,9 @@ export default function RootLayout () {
       }}
     >
       <Suspense>
-        <RootLayoutNav />
+        <CountDownProvider>
+          <RootLayoutNav />
+        </CountDownProvider>
       </Suspense>
     </SWRConfig>
   )
@@ -115,6 +118,11 @@ function RootLayoutNav () {
               <Stack.Screen
                 name="(tabs)"
                 options={{ headerShown: false }}
+              />
+              {/* eslint-disable-next-line react/jsx-max-depth */}
+              <Stack.Screen
+                name="notavailable"
+                options={{ headerShown: false, presentation: 'modal' }}
               />
             </Stack>
           </Provider>

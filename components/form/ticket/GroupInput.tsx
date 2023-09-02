@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { HelperText, SegmentedButtons } from 'react-native-paper'
+import { HelperText, SegmentedButtons, Text } from 'react-native-paper'
 import { View, StyleSheet } from 'react-native'
 import { ticket } from 'store'
+import config from 'store/config'
 
 const buttons = [
   {
@@ -23,13 +24,19 @@ const GroupInput = observer(() => {
       <HelperText type='info'>
         组别选择
       </HelperText>
-      <SegmentedButtons
-        value={ticket.group}
-        onValueChange={(value) => {
-          ticket.setGroup(value)
-        }}
-        buttons={buttons}
-      />
+      {
+        config.isAfter
+          ? <Text variant='bodyLarge'>
+            {`您的选择是${ticket.group === 'software' ? '软件组' : '硬件组'}。`}
+          </Text>
+          : <SegmentedButtons
+              value={ticket.group}
+              onValueChange={(value) => {
+                ticket.setGroup(value)
+              }}
+              buttons={buttons}
+            />
+      }
     </View>
   )
 })

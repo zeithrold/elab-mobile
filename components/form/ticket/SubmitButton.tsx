@@ -8,22 +8,17 @@ import { Alert, StyleSheet, View } from 'react-native'
 import { TouchableRipple, Text, useTheme, ActivityIndicator } from 'react-native-paper'
 import { ticket } from 'store'
 
-const ButtonIcon = observer(() => {
-  const {
-    colors: {
-      onPrimary
-    }
-  } = useTheme()
+const ButtonIcon = observer(({ color }: { color: string }) => {
   return (
     <View style={styles.icon}>
       {
         !ticket.loading
           ? <MaterialCommunityIcons
               name='content-save'
-              color={onPrimary}
+              color={color}
               size={30}
             />
-          : <ActivityIndicator color={onPrimary} />
+          : <ActivityIndicator color={color} />
       }
     </View>
   )
@@ -49,22 +44,28 @@ function errorHandler (error: any) {
   )
 }
 
+// eslint-disable-next-line complexity
 const SubmitButton = observer(() => {
   const router = useRouter()
   const { data: accessToken, isLoading } = useAccessToken()
   const {
     colors: {
       primary,
-      onPrimary
+      onPrimary,
+      errorContainer,
+      onErrorContainer
     }
   } = useTheme()
+  const disabled = ticket.loading || !ticket.valid || isLoading || accessToken === undefined
+  const container = !ticket.valid ? errorContainer : primary
+  const onContainer = !ticket.valid ? onErrorContainer : onPrimary
   return (
     <TouchableRipple
-      disabled={ticket.loading}
+      disabled={disabled}
       style={[
         styles.item,
         {
-          backgroundColor: primary
+          backgroundColor: container
         }
       ]}
       onPress={() => {
@@ -77,14 +78,18 @@ const SubmitButton = observer(() => {
       }}
     >
       <View style={styles.container}>
-        <ButtonIcon />
+        <ButtonIcon color={onContainer} />
         <Text
           variant='headlineSmall'
           style={[styles.label, {
-            color: onPrimary
+            color: onContainer
           }]}
         >
-          保存
+          {
+            ticket.loading || isLoading
+              ? '正在保存'
+              : ticket.valid ? '保存' : '请填写完整'
+          }
         </Text>
       </View>
     </TouchableRipple>

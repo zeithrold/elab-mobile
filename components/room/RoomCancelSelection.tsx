@@ -7,6 +7,7 @@ import { FAB } from 'react-native-paper'
 import { room as roomStore } from 'store'
 import { useAccessToken } from 'lib/hooks'
 import { ApplyV1 } from 'lib'
+import config from 'store/config'
 
 const RoomCancelSelection = observer(() => {
   const { data: accessToken, isLoading: accessTokenLoading } = useAccessToken()
@@ -27,7 +28,7 @@ const RoomCancelSelection = observer(() => {
     <FAB
       icon='content-save-off'
       label='取消选择'
-      visible={roomStore.selected !== ''}
+      visible={roomStore.selected !== '' && !config.isAfter}
       variant='tertiary'
       disabled={accessTokenLoading || roomStore.loading}
       style={styles.fabStyle}

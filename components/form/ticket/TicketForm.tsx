@@ -10,6 +10,7 @@ import { Divider } from 'react-native-paper'
 import { useTicket } from 'lib/hooks'
 import { useEffectOnce } from 'usehooks-ts'
 import { ticket as ticketStore } from 'store'
+import config from 'store/config'
 
 export default function TicketForm () {
   const { data, trigger } = useTicket()
@@ -34,7 +35,10 @@ export default function TicketForm () {
       <ContactInput />
       <GroupInput />
       <Divider style={{ marginVertical: 16 }} />
-      <SubmitButton />
+      {
+        !config.isAfter ? <SubmitButton /> : null
+      }
+
     </View>
   )
 }

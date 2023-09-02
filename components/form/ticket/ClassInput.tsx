@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite'
 import { StyleSheet, View } from 'react-native'
 import { HelperText, TextInput } from 'react-native-paper'
 import { ticket } from 'store'
+import config from 'store/config'
 
 function isError (text: string) {
   if (text.length === 0 || text.length > 14) {
@@ -17,7 +18,7 @@ const ClassInput = observer(() => {
       style={styles.item}
     >
       <TextInput
-        disabled={ticket.loading}
+        disabled={ticket.loading || config.isAfter}
         label="班级"
         placeholder='例如：电2301、未来2301、智创2301'
         value={ticket.class_name}

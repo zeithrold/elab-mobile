@@ -6,6 +6,7 @@ class TextForm {
   accessTokenLoading = false
   textFormLoading = false
   modified = false
+
   constructor () {
     makeAutoObservable(this)
   }

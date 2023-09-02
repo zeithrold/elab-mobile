@@ -9,6 +9,7 @@ const useAccessToken = () => {
   const { getCredentials } = useAuth0()
   return useSWR('getCredential', async () => {
     const accessToken = (await getCredentials())?.accessToken
+    // console.log(accessToken)
     return accessToken
   })
 }

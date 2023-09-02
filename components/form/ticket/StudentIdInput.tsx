@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite'
 import { HelperText, TextInput } from 'react-native-paper'
 import { StyleSheet, View } from 'react-native'
 import { ticket } from 'store'
+import config from 'store/config'
 
 function isError (text: string) {
   if (text.length !== 11) {
@@ -28,7 +29,7 @@ const StudentIdInput = observer(() => {
       style={styles.item}
     >
       <TextInput
-        disabled={ticket.loading}
+        disabled={ticket.loading || config.isAfter}
         label="学号"
         value={ticket.student_id}
         onChangeText={(text) => {

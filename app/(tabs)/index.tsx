@@ -1,6 +1,9 @@
+import CountDown from 'components/CountDown'
 import IndexTitle from 'components/index/IndexTitle'
 import TotalStatus from 'components/index/TotalStatus'
 import UserStatus from 'components/index/UserStatus'
+import { useFocusEffect } from 'expo-router'
+import { useStatus } from 'lib/hooks'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
@@ -13,6 +16,10 @@ const BasicInfoScreen = observer(() => {
       background
     }
   } = useTheme()
+  const { mutate: statusMutate } = useStatus()
+  useFocusEffect(React.useCallback(() => {
+    void statusMutate()
+  }, []))
   return (
     <View style={[styles.root, { backgroundColor: background }]}>
       <Appbar.Header>
@@ -22,6 +29,7 @@ const BasicInfoScreen = observer(() => {
       </Appbar.Header>
       <ScrollView style={styles.container}>
         <IndexTitle />
+        <CountDown />
         {
           home.loading
             ? <ActivityIndicator />

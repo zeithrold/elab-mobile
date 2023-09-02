@@ -2,18 +2,20 @@ import RoomCancelSelection from 'components/room/RoomCancelSelection'
 import RoomList from 'components/room/RoomList'
 import RoomTitle from 'components/room/RoomTitle'
 import { useFocusEffect } from 'expo-router'
-import { useAccessToken, useRoomList, useRoomSelection } from 'lib/hooks'
+import { useAccessToken, useRoomList, useRoomSelection, useStatus } from 'lib/hooks'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { View, ScrollView, RefreshControl, Alert } from 'react-native'
 import { Appbar, useTheme } from 'react-native-paper'
 import { room as roomStore } from 'store'
 
+// eslint-disable-next-line complexity
 const InterviewScreen = observer(() => {
   const { isLoading: isAccessTokenLoading } = useAccessToken()
   const { data: roomSelection, isLoading: roomSelectionLoading, mutate: roomSelectionMutate } = useRoomSelection()
   const { mutate: roomListMutate } = useRoomList()
-  const isLoading = isAccessTokenLoading || roomStore.roomLoading || roomStore.forceRefresh
+  const { data: status, isLoading: statusLoading, mutate: statusMutate } = useStatus()
+  const isLoading = isAccessTokenLoading || roomStore.roomLoading || roomStore.forceRefresh || statusLoading
   const {
     colors: {
       background
@@ -22,6 +24,9 @@ const InterviewScreen = observer(() => {
   useFocusEffect(React.useCallback(() => {
     if (isLoading) return
     roomStore.setForceRefresh(true)
+  }, []))
+  useFocusEffect(React.useCallback(() => {
+    void statusMutate()
   }, []))
   React.useEffect(() => {
     if (roomStore.forceRefresh && !roomStore.roomLoading) {
@@ -69,10 +74,13 @@ const InterviewScreen = observer(() => {
               roomStore.setForceRefresh(true)
             }}
           />
-        }
+          }
       >
-        <RoomTitle />
-        <RoomList />
+        <RoomTitle />{
+          status?.textform && status?.ticket
+            ? <RoomList />
+            : null
+        }
       </ScrollView>
       <RoomCancelSelection />
     </View>

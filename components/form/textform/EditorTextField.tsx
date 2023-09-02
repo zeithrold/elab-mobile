@@ -5,6 +5,7 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import { textForm } from 'store'
+import config from 'store/config'
 import { useEffectOnce } from 'usehooks-ts'
 
 const EditorTextField = observer(() => {
@@ -32,7 +33,7 @@ const EditorTextField = observer(() => {
         label="你的回答"
         placeholder='你的回答将会被用作面试依据。'
         multiline
-        disabled={textForm.textFormLoading}
+        disabled={textForm.textFormLoading || config.isAfter}
         value={textForm.answer}
         onChangeText={(text) => {
           textForm.setAnswer(text)

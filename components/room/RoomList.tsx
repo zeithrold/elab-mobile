@@ -4,18 +4,21 @@ import { ActivityIndicator, List } from 'react-native-paper'
 import { useRoomList } from 'lib/hooks'
 import RoomListAccordion from './RoomListAccordion'
 import { observer } from 'mobx-react-lite'
+import CountDown from 'components/CountDown'
+import config from 'store/config'
 
 const RoomList = observer(() => {
   const { data: roomListByDate, isLoading: roomListLoading } = useRoomList()
   return (
     <View>
+      <CountDown />
       {
         roomListLoading
           ? <ActivityIndicator />
           : null
       }
       {
-        roomListByDate !== undefined
+        roomListByDate !== undefined && !config.isAfter
           ? (<List.AccordionGroup>
             <List.Subheader>
               面试场次选择
