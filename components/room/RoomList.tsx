@@ -28,6 +28,11 @@ const RoomListRadio = observer((props: RoomListItemProps) => {
 
 function RoomListItem (props: RoomListItemProps) {
   const { room } = props
+  const date = new Date(room.time)
+  const dateString = date.toLocaleString('zh-CN', {
+    dateStyle: 'medium',
+    timeStyle: 'medium'
+  })
   return (
     <List.Item
       key={room.id}
@@ -36,12 +41,11 @@ function RoomListItem (props: RoomListItemProps) {
         roomStore.setSelected(room.id)
       }}
       descriptionNumberOfLines={4}
-      description={[
-        room.capacity,
-        '人',
-        ' ',
-        room.location
-      ]}
+      description={
+        `${room.occupancy} / ${room.capacity} 人\n` +
+          `${dateString} \n` +
+          `${room.location}`
+      }
       left={
         iconProps => (
           <RoomListRadio
@@ -50,6 +54,7 @@ function RoomListItem (props: RoomListItemProps) {
           />
         )
       }
+      style={{ paddingHorizontal: 8 }}
     />
   )
 }
