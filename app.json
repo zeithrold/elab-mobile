@@ -12,20 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "infoPlist": {
-        "NSCameraUsageDescription": "请允许 $(PRODUCT_NAME) 使用相机。",
-        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone",
-        "NSCalendarsUsageDescription": "请允许 $(PRODUCT_NAME) 使用日历。",
-        "NSRemindersUsageDescription": "Allow $(PRODUCT_NAME) to access your reminders",
-        "NSFaceIDUsageDescription": "请允许 $(PRODUCT_NAME) 使用生物验证。",
-        "NSPhotoLibraryUsageDescription": "请允许 $(PRODUCT_NAME) 访问您的照片。",
-        "NSPhotoLibraryAddUsageDescription": "请允许 $(PRODUCT_NAME) 存储您的图片。"
-      },
       "bundleIdentifier": "com.elab.mobileapp"
     },
     "android": {
@@ -33,18 +22,6 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": [
-        "android.permission.RECORD_AUDIO",
-        "android.permission.MODIFY_AUDIO_SETTINGS",
-        "android.permission.CAMERA",
-        "android.permission.READ_CALENDAR",
-        "android.permission.WRITE_CALENDAR",
-        "android.permission.USE_BIOMETRIC",
-        "android.permission.USE_FINGERPRINT",
-        "android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.WRITE_EXTERNAL_STORAGE",
-        "android.permission.ACCESS_MEDIA_LOCATION"
-      ],
       "package": "com.elab.mobileapp"
     },
     "plugins": [
@@ -55,77 +32,7 @@
         }
       ],
       "expo-router",
-      [
-        "expo-av",
-        {
-          "microphonePermission": "请允许 $(PRODUCT_NAME) 使用麦克风。"
-        }
-      ],
-      [
-        "expo-barcode-scanner",
-        {
-          "cameraPermission": "请允许 $(PRODUCT_NAME) 使用相机。"
-        }
-      ],
-      [
-        "expo-calendar",
-        {
-          "calendarPermission": "请允许 $(PRODUCT_NAME) 使用日历。",
-          "remindersPermission": "请允许 $(PRODUCT_NAME) 使用提醒事项。"
-        }
-      ],
-      [
-        "expo-camera",
-        {
-          "cameraPermission": "请允许 $(PRODUCT_NAME) 使用相机。"
-        }
-      ],
-      [
-        "expo-document-picker",
-        {
-          "iCloudContainerEnvironment": "Production"
-        }
-      ],
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "请允许 $(PRODUCT_NAME) 访问您的照片。"
-        }
-      ],
-      [
-        "expo-local-authentication",
-        {
-          "faceIDPermission": "请允许 $(PRODUCT_NAME) 使用生物验证。"
-        }
-      ],
-      [
-        "expo-media-library",
-        {
-          "photosPermission": "请允许 $(PRODUCT_NAME) 访问您的照片。",
-          "savePhotosPermission": "请允许 $(PRODUCT_NAME) 存储您的图片。",
-          "isAccessMediaLocationEnabled": true
-        }
-      ],
-      "expo-build-properties",
-      "expo-localization",
-      "react-native-nfc-manager",
-      [
-        "@config-plugins/react-native-ble-plx",
-        {
-          "isBackgroundEnabled": true,
-          "modes": [
-            "peripheral",
-            "central"
-          ],
-          "bluetoothAlwaysPermission": "请允许 $(PRODUCT_NAME) 使用蓝牙。"
-        }
-      ],
-      [
-        "react-native-nfc-manager",
-        {
-          "nfcPermission": "请允许 $(PRODUCT_NAME) 使用NFC。"
-        }
-      ]
+      "expo-build-properties"
     ],
     "experiments": {
       "typedRoutes": true,

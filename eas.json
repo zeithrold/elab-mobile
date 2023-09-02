@@ -8,8 +8,11 @@
       "distribution": "internal",
       "channel": "development"
     },
-    "preview": {
+    "preview-android": {
       "distribution": "internal",
+      "channel": "preview"
+    },
+    "preview-ios": {
       "channel": "preview"
     },
     "production": {
