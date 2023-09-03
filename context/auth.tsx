@@ -29,7 +29,7 @@ function useProtectedRoute (user: User | null, isLoading: boolean) {
       router.replace('/signin')
     } else if (user && inAuthGroup) {
       // Redirect away from the sign-in page.
-      router.replace('/')
+      router.replace('/textform/tempredirect')
     }
   }, [user, segments, navigationState])
 }

@@ -112,7 +112,7 @@ function RootLayoutNav () {
               {/* eslint-disable-next-line react/jsx-max-depth */}
               <Stack.Screen
                 name='signin'
-                options={{ headerShown: false, presentation: 'modal' }}
+                options={{ headerShown: false, gestureEnabled: false }}
               />
               {/* eslint-disable-next-line react/jsx-max-depth */}
               <Stack.Screen
@@ -122,7 +122,7 @@ function RootLayoutNav () {
               {/* eslint-disable-next-line react/jsx-max-depth */}
               <Stack.Screen
                 name="notavailable"
-                options={{ headerShown: false, presentation: 'modal' }}
+                options={{ headerShown: false, gestureEnabled: false }}
               />
               {/* eslint-disable-next-line react/jsx-max-depth */}
               <Stack.Screen

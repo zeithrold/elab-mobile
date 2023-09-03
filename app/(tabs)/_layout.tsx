@@ -1,13 +1,13 @@
 import React from 'react'
 import { MaterialTabs } from 'components/MaterialTabs'
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const unstable_settings = {
+  initialRouteName: 'index'
+}
 
 export default function TabLayout () {
   return (
-    <MaterialTabs
-      screenOptions={{
-        title: '首页'
-      }}
-    >
+    <MaterialTabs>
       <MaterialTabs.Screen
         name='index'
         options={{
