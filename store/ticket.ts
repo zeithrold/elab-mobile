@@ -14,7 +14,7 @@ class TicketStore implements Ticket {
 
   get answerValid () {
     return {
-      name: this.name.length > 0 && this.name.length <= 20,
+      name: (this.name.length > 0 && this.name.length <= 14),
       student_id: this.student_id.length === 11,
       contact: this.contact.length === 11,
       group: this.group === 'software' || this.group === 'hardware',
