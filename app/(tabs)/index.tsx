@@ -6,7 +6,7 @@ import { useFocusEffect } from 'expo-router'
 import { useStatus } from 'lib/hooks'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native'
 import { ActivityIndicator, Appbar, useTheme } from 'react-native-paper'
 import { home } from 'store'
 
@@ -16,10 +16,16 @@ const BasicInfoScreen = observer(() => {
       background
     }
   } = useTheme()
-  const { mutate: statusMutate } = useStatus()
+  const [forceUpdate, setForceUpdate] = React.useState(false)
+  const { mutate: statusMutate, isLoading } = useStatus()
   useFocusEffect(React.useCallback(() => {
-    void statusMutate()
+    setForceUpdate(true)
   }, []))
+  React.useEffect(() => {
+    if (!forceUpdate) return
+    void statusMutate()
+    setForceUpdate(false)
+  }, [forceUpdate])
   return (
     <View style={[styles.root, { backgroundColor: background }]}>
       <Appbar.Header>
@@ -27,7 +33,18 @@ const BasicInfoScreen = observer(() => {
           title="首页"
         />
       </Appbar.Header>
-      <ScrollView style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        refreshControl={
+          <RefreshControl
+            refreshing={isLoading}
+            onRefresh={() => {
+              if (forceUpdate) return
+              setForceUpdate(true)
+            }}
+          />
+        }
+      >
         <IndexTitle />
         <CountDown />
         {
