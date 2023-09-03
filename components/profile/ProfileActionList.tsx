@@ -91,7 +91,7 @@ const ProfileActionList = () => {
       <List.Item
         title='隐私政策'
         description='我们严格遵守隐私相关法律法规'
-        onPress={() => { router.push('https://elab-public-1301570861.cos.ap-beijing.myqcloud.com/oneelab_privacy.html') }}
+        onPress={() => { router.push('https://elab-public-1301570861.cos-dualstack.ap-beijing.myqcloud.com/oneelab_privacy.html') }}
       />
       <List.Item
         title='查看开源项目'
