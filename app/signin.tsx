@@ -39,7 +39,7 @@ export default function SignInPage () {
           })
             .then((credential) => {
               if (credential) {
-                router.replace('/index')
+                router.replace('/')
               }
             })
             .catch(authorizeErrorHandler)

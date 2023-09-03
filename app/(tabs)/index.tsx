@@ -16,16 +16,10 @@ const BasicInfoScreen = observer(() => {
       background
     }
   } = useTheme()
-  const [forceUpdate, setForceUpdate] = React.useState(false)
   const { mutate: statusMutate, isLoading } = useStatus()
   useFocusEffect(React.useCallback(() => {
-    setForceUpdate(true)
-  }, []))
-  React.useEffect(() => {
-    if (!forceUpdate) return
     void statusMutate()
-    setForceUpdate(false)
-  }, [forceUpdate])
+  }, []))
   return (
     <View style={[styles.root, { backgroundColor: background }]}>
       <Appbar.Header>
@@ -39,8 +33,8 @@ const BasicInfoScreen = observer(() => {
           <RefreshControl
             refreshing={isLoading}
             onRefresh={() => {
-              if (forceUpdate) return
-              setForceUpdate(true)
+              if (isLoading) return
+              void statusMutate()
             }}
           />
         }
