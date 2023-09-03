@@ -15,7 +15,8 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.elab.mobileapp"
+      "bundleIdentifier": "com.elab.mobileapp",
+      "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {
