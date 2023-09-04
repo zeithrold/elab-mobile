@@ -26,6 +26,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "versionCode": 4,
       "package": "com.elab.mobileapp"
     },
     "plugins": [
