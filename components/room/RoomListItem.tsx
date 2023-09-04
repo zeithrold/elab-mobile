@@ -54,7 +54,8 @@ const RoomListItem = observer((props: RoomListItemProps) => {
   const isLoading = isAccessTokenLoading || roomStore.roomLoading
   const dateString = date.toLocaleString('zh-CN', {
     dateStyle: 'full',
-    timeStyle: 'medium'
+    timeStyle: 'medium',
+    timeZone: 'UTC'
   })
   return (
     <List.Item

@@ -21,7 +21,7 @@ const items: Record<string, ItemContent> = {
   textform: {
     title: '表单填报',
     description: '填写一些问题的回答。',
-    routerRoute: '/textform/home'
+    routerRoute: '/textform'
   },
   room_selection: {
     title: '面试场次选择',

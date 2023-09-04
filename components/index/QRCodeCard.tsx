@@ -56,12 +56,20 @@ const QRCodeCard = observer(() => {
 
             <Text
               style={{ color: onPrimary }}
-              variant='bodyLarge'
+              // variant='bodyLarge'
             >
               {new Date(room?.time).toLocaleString('zh-CN', {
                 dateStyle: 'long',
-                timeStyle: 'medium'
+                timeStyle: 'medium',
+                timeZone: 'UTC'
               })}
+            </Text>
+
+            <Text
+              style={{ color: onPrimary }}
+              // variant='bodyLarge'
+            >
+              {room?.location }
             </Text>
           </View>
           <View
