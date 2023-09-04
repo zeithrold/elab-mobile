@@ -3,7 +3,7 @@ import IndexTitle from 'components/index/IndexTitle'
 import TotalStatus from 'components/index/TotalStatus'
 import UserStatus from 'components/index/UserStatus'
 import { useFocusEffect } from 'expo-router'
-import { useStatus } from 'lib/hooks'
+import { useStatusMutation } from 'lib/hooks'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native'
@@ -16,9 +16,9 @@ const BasicInfoScreen = observer(() => {
       background
     }
   } = useTheme()
-  const { mutate: statusMutate, isLoading } = useStatus()
+  const { trigger, isMutating } = useStatusMutation()
   useFocusEffect(React.useCallback(() => {
-    void statusMutate()
+    void trigger()
   }, []))
   return (
     <View style={[styles.root, { backgroundColor: background }]}>
@@ -31,10 +31,10 @@ const BasicInfoScreen = observer(() => {
         style={styles.container}
         refreshControl={
           <RefreshControl
-            refreshing={isLoading}
+            refreshing={isMutating}
             onRefresh={() => {
-              if (isLoading) return
-              void statusMutate()
+              if (isMutating) return
+              void trigger()
             }}
           />
         }

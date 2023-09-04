@@ -26,6 +26,18 @@ const useStatus = () => {
   )
 }
 
+const useStatusMutation = () => {
+  const { data: accessToken } = useAccessToken()
+  return useSWRMutation(
+    () => accessToken ? ['apply.getStatus', accessToken] : null,
+    async ([_, accessToken]) => {
+      const applyApi = new ApplyV1(accessToken)
+      const status = await applyApi.getStatus()
+      return status
+    }
+  )
+}
+
 const useTicket = () => {
   const { data: accessToken } = useAccessToken()
   return useSWRMutation(
@@ -165,6 +177,7 @@ const useRoom = (id: string | undefined) => {
 export {
   useAccessToken,
   useStatus,
+  useStatusMutation,
   useTicket,
   useQuestion,
   useQuestionList,
