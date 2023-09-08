@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: iOS IPA file
-          path: *.ipa
+          path: "*.ipa"
 
   build-android:
     runs-on: ubuntu-latest
@@ -71,4 +71,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Android APK file
-          path: *.apk
+          path: "*.apk"
