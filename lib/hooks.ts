@@ -6,8 +6,8 @@ import { ApplyV1 } from './v1'
 import { type Room } from 'type'
 
 const useAccessToken = () => {
-  const { getCredentials } = useAuth0()
-  return useSWR('getCredential', async () => {
+  const { user, getCredentials } = useAuth0()
+  return useSWR(() => user ? 'getCredential' : null, async () => {
     const accessToken = (await getCredentials())?.accessToken
     // console.log(accessToken)
     return accessToken
@@ -15,8 +15,8 @@ const useAccessToken = () => {
 }
 
 const useAccessTokenMutation = () => {
-  const { getCredentials } = useAuth0()
-  return useSWRMutation('getCredential', async () => {
+  const { user, getCredentials } = useAuth0()
+  return useSWRMutation(() => user ? 'getCredential' : null, async () => {
     const accessToken = (await getCredentials())?.accessToken
     // console.log(accessToken)
     return accessToken
