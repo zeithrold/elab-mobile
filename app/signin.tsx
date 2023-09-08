@@ -5,9 +5,11 @@ import { Appbar, TouchableRipple, useTheme, Text, ActivityIndicator } from 'reac
 import { authorizeErrorHandler } from 'context/auth'
 import { useRouter } from 'expo-router'
 import AuthTitle from 'components/AuthTitle'
+import { useAccessTokenMutation } from 'lib/hooks'
 
 export default function SignInPage () {
   const { authorize, isLoading } = useAuth0()
+  const { trigger } = useAccessTokenMutation()
   const {
     colors: {
       primary,
@@ -39,7 +41,12 @@ export default function SignInPage () {
           })
             .then((credential) => {
               if (credential) {
-                router.replace('/')
+                trigger().then(() => {
+                  router.replace('/')
+                })
+                  .catch((err) => {
+                    console.warn(err)
+                  })
               }
             })
             .catch(authorizeErrorHandler)

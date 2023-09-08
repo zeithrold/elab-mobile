@@ -14,6 +14,15 @@ const useAccessToken = () => {
   })
 }
 
+const useAccessTokenMutation = () => {
+  const { getCredentials } = useAuth0()
+  return useSWRMutation('getCredential', async () => {
+    const accessToken = (await getCredentials())?.accessToken
+    // console.log(accessToken)
+    return accessToken
+  })
+}
+
 const useStatus = () => {
   const { data: accessToken } = useAccessToken()
   return useSWR(
@@ -188,6 +197,7 @@ const useRoom = (id: string | undefined) => {
 
 export {
   useAccessToken,
+  useAccessTokenMutation,
   useStatus,
   useStatusMutation,
   useTicket,
