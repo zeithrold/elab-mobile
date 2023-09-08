@@ -1,11 +1,9 @@
-import { Redirect, useFocusEffect } from 'expo-router'
-import { useConfigMutation } from 'lib/hooks'
+import { Redirect } from 'expo-router'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 
-export default function TempRedirect () {
-  const { trigger } = useConfigMutation()
-  useFocusEffect(React.useCallback(() => {
-    void trigger()
-  }, []))
+const TempRedirect = observer(() => {
   return <Redirect href='/(tabs)' />
-}
+})
+
+export default TempRedirect

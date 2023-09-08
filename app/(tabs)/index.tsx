@@ -3,11 +3,11 @@ import IndexTitle from 'components/index/IndexTitle'
 import TotalStatus from 'components/index/TotalStatus'
 import UserStatus from 'components/index/UserStatus'
 import { useFocusEffect } from 'expo-router'
-import { useStatusMutation, useConfigMutation } from 'lib/hooks'
+import { useStatusMutation, useConfigMutation, useAccessToken } from 'lib/hooks'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native'
-import { ActivityIndicator, Appbar, useTheme } from 'react-native-paper'
+import { Appbar, useTheme } from 'react-native-paper'
 import { home } from 'store'
 
 const BasicInfoScreen = observer(() => {
@@ -16,13 +16,14 @@ const BasicInfoScreen = observer(() => {
       background
     }
   } = useTheme()
+  const { isLoading: isAccessTokenLoading } = useAccessToken()
   const { trigger: statusTrigger, isMutating: isStatusMutating } = useStatusMutation()
   const { trigger: configTrigger, isMutating: isConfigMutating } = useConfigMutation()
-  const isMutating = isStatusMutating || isConfigMutating
+  const isMutating = isStatusMutating || isConfigMutating || isAccessTokenLoading || home.loading
   useFocusEffect(React.useCallback(() => {
     void statusTrigger()
     void configTrigger()
-  }, []))
+  }, [isAccessTokenLoading]))
   return (
     <View style={[styles.root, { backgroundColor: background }]}>
       <Appbar.Header>
@@ -45,11 +46,6 @@ const BasicInfoScreen = observer(() => {
       >
         <IndexTitle />
         <CountDown />
-        {
-          home.loading
-            ? <ActivityIndicator />
-            : null
-        }
         <TotalStatus />
         <UserStatus />
       </ScrollView>

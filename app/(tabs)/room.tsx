@@ -12,10 +12,10 @@ import { room as roomStore } from 'store'
 // eslint-disable-next-line complexity
 const InterviewScreen = observer(() => {
   const { isLoading: isAccessTokenLoading } = useAccessToken()
-  const { data: roomSelection, isLoading: roomSelectionLoading, mutate: roomSelectionMutate } = useRoomSelection()
-  const { mutate: roomListMutate } = useRoomList()
-  const { data: status, isLoading: statusLoading, mutate: statusMutate } = useStatus()
-  const isLoading = isAccessTokenLoading || roomStore.roomLoading || roomStore.forceRefresh || statusLoading
+  const { data: roomSelection, isLoading: isRoomSelectionLoading, mutate: roomSelectionMutate } = useRoomSelection()
+  const { mutate: roomListMutate, isLoading: isRoomListLoading } = useRoomList()
+  const { data: status, isLoading: isStatusLoading, mutate: statusMutate } = useStatus()
+  const isLoading = isAccessTokenLoading || roomStore.roomLoading || roomStore.forceRefresh || isStatusLoading || isRoomListLoading
   const {
     colors: {
       background
@@ -44,9 +44,9 @@ const InterviewScreen = observer(() => {
     }
   }, [roomStore.forceRefresh])
   React.useEffect(() => {
-    if (roomSelection === undefined || roomSelectionLoading) return
+    if (roomSelection === undefined || isRoomSelectionLoading) return
     roomStore.setSelected(roomSelection)
-  }, [roomSelection, roomSelectionLoading])
+  }, [roomSelection, isRoomSelectionLoading])
   React.useEffect(() => {
     if (!roomStore.roomLoading) {
       Promise.all([

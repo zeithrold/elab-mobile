@@ -1,6 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
-import { ActivityIndicator, List } from 'react-native-paper'
+import { List } from 'react-native-paper'
 import { useRoomList } from 'lib/hooks'
 import RoomListAccordion from './RoomListAccordion'
 import { observer } from 'mobx-react-lite'
@@ -8,15 +8,10 @@ import CountDown from 'components/CountDown'
 import config from 'store/config'
 
 const RoomList = observer(() => {
-  const { data: roomListByDate, isLoading: roomListLoading } = useRoomList()
+  const { data: roomListByDate } = useRoomList()
   return (
     <View>
       <CountDown />
-      {
-        roomListLoading
-          ? <ActivityIndicator />
-          : null
-      }
       {
         roomListByDate !== undefined && !config.isAfter
           ? (<List.AccordionGroup>
