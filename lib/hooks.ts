@@ -162,6 +162,18 @@ const useConfig = () => {
   )
 }
 
+const useConfigMutation = () => {
+  const { data: accessToken } = useAccessToken()
+  return useSWRMutation(
+    () => accessToken ? ['apply.getConfig', accessToken] : null,
+    async ([_, accessToken]) => {
+      const applyApi = new ApplyV1(accessToken)
+      const config = await applyApi.getConfig()
+      return config
+    }
+  )
+}
+
 const useRoom = (id: string | undefined) => {
   const { data: roomList } = useRoomList()
   return useSWR(
@@ -187,5 +199,6 @@ export {
   useRoomList,
   useRoomSelection,
   useConfig,
+  useConfigMutation,
   useRoom
 }

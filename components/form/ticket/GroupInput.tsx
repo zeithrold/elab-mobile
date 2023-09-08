@@ -22,7 +22,7 @@ const GroupInput = observer(() => {
   return (
     <View style={styles.item}>
       <HelperText type='info'>
-        组别选择
+        组别意向选择
       </HelperText>
       {
         config.isAfter
