@@ -1,3 +1,4 @@
+name: EAS Update
 on:
   push:
     branches:

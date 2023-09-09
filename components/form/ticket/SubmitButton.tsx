@@ -1,5 +1,4 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
-import { useRouter } from 'expo-router'
 import { ApplyV1 } from 'lib'
 import { useAccessToken } from 'lib/hooks'
 import { observer } from 'mobx-react-lite'
@@ -46,7 +45,6 @@ function errorHandler (error: any) {
 
 // eslint-disable-next-line complexity
 const SubmitButton = observer(() => {
-  const router = useRouter()
   const { data: accessToken, isLoading } = useAccessToken()
   const {
     colors: {
@@ -72,7 +70,7 @@ const SubmitButton = observer(() => {
         if (isLoading || accessToken === undefined) return
         submitAction(accessToken)
           .then(() => {
-            router.back()
+            Alert.alert('保存成功', '您的信息已经成功提交服务器。')
           })
           .catch(errorHandler)
       }}

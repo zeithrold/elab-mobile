@@ -1,4 +1,4 @@
-import { router, useFocusEffect } from 'expo-router'
+import { useFocusEffect } from 'expo-router'
 import React from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import { List, useTheme } from 'react-native-paper'
@@ -54,9 +54,6 @@ function Item ({ item, status }: { item: ItemContent, status: boolean }) {
       title={item.title}
       description={item.description}
       left={props => <ItemIcon {...props} status={status} />}
-      onPress={() => {
-        router.push(item.routerRoute)
-      }}
     />
   )
 }
